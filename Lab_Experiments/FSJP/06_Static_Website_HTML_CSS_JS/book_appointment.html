@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Patient Registration - Book Appointment</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header class="app-header">
+        <h1>Patient Outpatient Registration</h1>
+        <nav>
+            <a href="login.html" class="nav-link">Staff Login</a>
+        </nav>
+    </header>
+    <main class="container">
+        <section class="form-section">
+            <h2>Book a Medical Appointment</h2>
+            <p class="form-subtitle">Please fill out the form below to schedule a visit with our specialists.</p>
+            <form id="bookingForm">
+                <div class="form-grid">
+                    <div class="input-group">
+                        <label for="firstName">First Name</label>
+                        <input type="text" id="firstName" placeholder="First name">
+                    </div>
+                    <div class="input-group">
+                        <label for="lastName">Last Name</label>
+                        <input type="text" id="lastName" placeholder="Last name">
+                    </div>
+                    <div class="input-group">
+                        <label for="email">Email Address</label>
+                        <input type="email" id="email" placeholder="patient@example.com">
+                    </div>
+                    <div class="input-group">
+                        <label for="phone">Phone Number</label>
+                        <input type="text" id="phone" placeholder="+91 98765 43210">
+                    </div>
+                    <div class="input-group">
+                        <label for="specialty">Medical Department</label>
+                        <select id="specialty">
+                            <option value="General Medicine">General Medicine</option>
+                            <option value="Cardiology">Cardiology</option>
+                            <option value="Pediatrics">Pediatrics</option>
+                            <option value="Orthopedics">Orthopedics</option>
+                        </select>
+                    </div>
+                    <div class="input-group">
+                        <label for="appointmentDate">Preferred Date</label>
+                        <input type="date" id="appointmentDate">
+                    </div>
+                </div>
+                <div class="input-group full-width">
+                    <label for="symptoms">Reason for Visit / Symptoms</label>
+                    <textarea id="symptoms" rows="4" placeholder="Describe symptoms or reasons for visit..."></textarea>
+                </div>
+                <button type="button" onclick="executeStaticBooking()" class="btn-success">Request Appointment</button>
+            </form>
+            <div id="submissionMessage" class="hidden-alert"></div>
+        </section>
+    </main>
+    <script src="script.js"></script>
+</body>
+</html>

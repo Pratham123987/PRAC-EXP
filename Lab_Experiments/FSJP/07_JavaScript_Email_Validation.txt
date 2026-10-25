@@ -1,0 +1,131 @@
+// JavaScript Email Validation
+// === Index.html ===
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <title>Email Validation - Exp 7</title>
+      <style>
+        * {
+          box-sizing: border-box;
+          margin: 0;
+          padding: 0;
+          font-family: Arial, sans-serif;
+        }
+        body {
+          background-color: #0b0f19;
+          color: #e2e8f0;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          height: 100vh;
+        }
+        .form-container {
+          background: #111827;
+          border: 1px solid #1f2937;
+          padding: 30px;
+          border-radius: 12px;
+          box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6);
+          width: 360px;
+        }
+        h2 {
+          margin-bottom: 20px;
+          color: #60a5fa;
+          text-align: center;
+        }
+        .form-group {
+          margin-bottom: 16px;
+        }
+        label {
+          display: block;
+          margin-bottom: 6px;
+          font-weight: bold;
+          color: #cbd5e1;
+        }
+        input[type="text"] {
+          width: 100%;
+          padding: 10px;
+          background: #0b0f19;
+          color: #f1f5f9;
+          border: 1px solid #374151;
+          border-radius: 6px;
+          font-size: 14px;
+          outline: none;
+        }
+        input[type="text"]:focus {
+          border-color: #3b82f6;
+          box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.25);
+        }
+        button {
+          width: 100%;
+          padding: 10px;
+          background-color: #2563eb;
+          color: #fff;
+          font-size: 16px;
+          border: none;
+          border-radius: 4px;
+          cursor: pointer;
+          font-weight: bold;
+          transition: background 0.3s;
+        }
+        button:hover {
+          background-color: #005f9e;
+        }
+        #statusMsg {
+          margin-top: 15px;
+          text-align: center;
+          font-weight: bold;
+          font-size: 14px;
+        }
+      </style>
+    </head>
+    <body>
+      <div class="form-container">
+        <h2>Email Validation</h2>
+        <form id="emailForm" onsubmit="return validateEmail()">
+          <div class="form-group">
+            <label for="userEmail">Enter Email Address:</label>
+            <input type="text" id="userEmail" name="userEmail" placeholder="e.g. varun@example.com" />
+          </div>
+          <button type="submit">Submit</button>
+          <p id="statusMsg"></p>
+        </form>
+      </div>
+      <script src="script.js"></script>
+    </body>
+    </html>
+// === Script.js ===
+    function validateEmail() {
+      const emailInput = document.getElementById("userEmail");
+      const statusMsg = document.getElementById("statusMsg");
+      const emailValue = emailInput.value.trim();
+        statusMsg.textContent = "";
+      if (emailValue === "") {
+        alert("Email field cannot be empty. Please enter an email address.");
+        emailInput.focus();
+        return false;
+      }
+      const atIndex = emailValue.indexOf("@");
+      const dotIndex = emailValue.lastIndexOf(".");
+      if (atIndex === -1 || dotIndex === -1) {
+        alert("Error: Email address must contain both '@' and '.' characters. Please re-enter.");
+        emailInput.focus();
+        return false;
+      }
+      if (atIndex < 1 || dotIndex <= atIndex + 1 || dotIndex + 1 >= emailValue.length) {
+        alert("Error: Invalid positioning of '@' or '.' in email address. Please re-enter.");
+        emailInput.focus();
+        return false;
+      }
+      const emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+.[a-zA-Z]{2,}$/;
+      if (!emailPattern.test(emailValue)) {
+        alert("Invalid Email Address format. Please re-enter a valid email.");
+        emailInput.focus();
+        return false;
+      }
+      statusMsg.style.color = "green";
+      statusMsg.textContent = "Valid Email Address!";
+      alert("Validation Successful: " + emailValue);
+      return true;
+    }

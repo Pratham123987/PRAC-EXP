@@ -1,0 +1,1002 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lab Experiments & Practicals | AOA • COA • FSJP</title>
+    <meta name="description" content="Comprehensive suite of laboratory practicals and algorithms in C, 8086 Assembly, Java, JSP, and React featuring modern dark layout implementations.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;600&family=Inter:wght@300;400;500;600;700&family=Outfit:wght@500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-base: #06080e;
+            --bg-surface: #0b101c;
+            --bg-card: #101728;
+            --bg-card-hover: #162035;
+            --border-subtle: rgba(255, 255, 255, 0.08);
+            --border-highlight: rgba(96, 165, 250, 0.35);
+            --text-main: #f1f5f9;
+            --text-muted: #94a3b8;
+            --text-dim: #64748b;
+            --color-aoa: #10b981;
+            --color-aoa-glow: rgba(16, 185, 129, 0.25);
+            --color-coa: #f59e0b;
+            --color-coa-glow: rgba(245, 158, 11, 0.25);
+            --color-fsjp: #3b82f6;
+            --color-fsjp-glow: rgba(59, 130, 246, 0.25);
+            --accent-cyan: #38bdf8;
+            --radius-lg: 14px;
+            --radius-md: 8px;
+            --radius-sm: 6px;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background-color: var(--bg-base);
+            color: var(--text-main);
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            min-height: 100vh;
+            line-height: 1.6;
+            overflow-x: hidden;
+            background-image: 
+                radial-gradient(ellipse 80% 50% at 50% -20%, rgba(59, 130, 246, 0.15), transparent),
+                radial-gradient(circle at 80% 80%, rgba(16, 185, 129, 0.06), transparent 50%),
+                radial-gradient(circle at 10% 40%, rgba(245, 158, 11, 0.05), transparent 40%);
+        }
+
+        /* Navigation Bar */
+        .navbar {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 18px 40px;
+            background: rgba(11, 16, 28, 0.75);
+            backdrop-filter: blur(16px);
+            border-bottom: 1px solid var(--border-subtle);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .nav-brand {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            text-decoration: none;
+            color: var(--text-main);
+        }
+
+        .nav-logo-badge {
+            width: 38px;
+            height: 38px;
+            border-radius: 10px;
+            background: linear-gradient(135deg, #2563eb, #10b981);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+            box-shadow: 0 4px 14px rgba(37, 99, 235, 0.4);
+        }
+
+        .nav-title-group h1 {
+            font-family: 'Outfit', sans-serif;
+            font-size: 19px;
+            font-weight: 700;
+            letter-spacing: -0.3px;
+        }
+
+        .nav-title-group span {
+            font-size: 12px;
+            color: var(--text-dim);
+            display: block;
+        }
+
+        .nav-actions {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+        }
+
+        .nav-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 16px;
+            font-size: 13px;
+            font-weight: 600;
+            border-radius: var(--radius-sm);
+            text-decoration: none;
+            transition: all 0.2s ease;
+            cursor: pointer;
+        }
+
+        .nav-btn-secondary {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid var(--border-subtle);
+            color: var(--text-main);
+        }
+
+        .nav-btn-secondary:hover {
+            background: rgba(255, 255, 255, 0.1);
+            border-color: rgba(255, 255, 255, 0.2);
+            transform: translateY(-1px);
+        }
+
+        .nav-btn-primary {
+            background: linear-gradient(135deg, #2563eb, #1d4ed8);
+            border: 1px solid rgba(96, 165, 250, 0.4);
+            color: white;
+            box-shadow: 0 4px 14px rgba(37, 99, 235, 0.3);
+        }
+
+        .nav-btn-primary:hover {
+            background: linear-gradient(135deg, #3b82f6, #2563eb);
+            transform: translateY(-1px);
+            box-shadow: 0 6px 18px rgba(37, 99, 235, 0.5);
+        }
+
+        /* Main Container */
+        .container {
+            max-width: 1300px;
+            margin: 0 auto;
+            padding: 40px 24px;
+        }
+
+        /* Hero Section */
+        .hero {
+            text-align: center;
+            padding: 40px 20px 50px;
+            position: relative;
+        }
+
+        .hero-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 6px 16px;
+            border-radius: 999px;
+            background: rgba(59, 130, 246, 0.1);
+            border: 1px solid rgba(59, 130, 246, 0.3);
+            color: #60a5fa;
+            font-size: 13px;
+            font-weight: 600;
+            margin-bottom: 20px;
+            letter-spacing: 0.3px;
+        }
+
+        .hero h2 {
+            font-family: 'Outfit', sans-serif;
+            font-size: clamp(32px, 5vw, 54px);
+            font-weight: 800;
+            line-height: 1.15;
+            margin-bottom: 16px;
+            letter-spacing: -1px;
+            background: linear-gradient(135deg, #ffffff 40%, #94a3b8 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .hero p {
+            font-size: 17px;
+            color: var(--text-muted);
+            max-width: 720px;
+            margin: 0 auto 32px;
+            font-weight: 400;
+        }
+
+        /* Stat Chips */
+        .stats-grid {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 16px;
+            margin-bottom: 40px;
+        }
+
+        .stat-card {
+            background: rgba(16, 23, 40, 0.7);
+            border: 1px solid var(--border-subtle);
+            border-radius: 12px;
+            padding: 14px 24px;
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            backdrop-filter: blur(8px);
+        }
+
+        .stat-icon {
+            font-size: 24px;
+        }
+
+        .stat-number {
+            font-family: 'Outfit', sans-serif;
+            font-size: 22px;
+            font-weight: 700;
+            color: var(--text-main);
+            display: block;
+            line-height: 1.1;
+        }
+
+        .stat-label {
+            font-size: 12px;
+            color: var(--text-dim);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            font-weight: 600;
+        }
+
+        /* Controls Section */
+        .controls-panel {
+            background: var(--bg-surface);
+            border: 1px solid var(--border-subtle);
+            border-radius: var(--radius-lg);
+            padding: 20px;
+            margin-bottom: 35px;
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: space-between;
+            gap: 18px;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+        }
+
+        .filter-tabs {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+
+        .tab-btn {
+            background: transparent;
+            border: 1px solid transparent;
+            color: var(--text-muted);
+            padding: 9px 18px;
+            border-radius: var(--radius-md);
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .tab-btn:hover {
+            background: rgba(255, 255, 255, 0.04);
+            color: var(--text-main);
+        }
+
+        .tab-btn.active {
+            background: #1e293b;
+            color: var(--text-main);
+            border-color: var(--border-subtle);
+            box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+        }
+
+        .tab-btn.tab-aoa.active {
+            border-color: rgba(16, 185, 129, 0.4);
+            color: #34d399;
+        }
+
+        .tab-btn.tab-coa.active {
+            border-color: rgba(245, 158, 11, 0.4);
+            color: #fbbf24;
+        }
+
+        .tab-btn.tab-fsjp.active {
+            border-color: rgba(59, 130, 246, 0.4);
+            color: #60a5fa;
+        }
+
+        .tab-count {
+            background: rgba(255, 255, 255, 0.08);
+            padding: 2px 8px;
+            border-radius: 999px;
+            font-size: 11px;
+            color: inherit;
+        }
+
+        .search-box {
+            position: relative;
+            flex: 1;
+            min-width: 260px;
+            max-width: 380px;
+        }
+
+        .search-input {
+            width: 100%;
+            background: #070a13;
+            border: 1px solid var(--border-subtle);
+            border-radius: var(--radius-md);
+            padding: 10px 14px 10px 38px;
+            color: var(--text-main);
+            font-size: 14px;
+            transition: all 0.2s ease;
+        }
+
+        .search-input:focus {
+            outline: none;
+            border-color: var(--accent-cyan);
+            box-shadow: 0 0 0 3px rgba(56, 189, 248, 0.2);
+        }
+
+        .search-icon {
+            position: absolute;
+            left: 12px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--text-dim);
+            pointer-events: none;
+            font-size: 14px;
+        }
+
+        .results-summary {
+            margin-bottom: 20px;
+            font-size: 14px;
+            color: var(--text-dim);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        /* Cards Grid */
+        .cards-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(370px, 1fr));
+            gap: 22px;
+        }
+
+        .experiment-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-subtle);
+            border-radius: var(--radius-lg);
+            padding: 24px;
+            display: flex;
+            flex-direction: column;
+            transition: all 0.25s ease;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 4px 14px rgba(0, 0, 0, 0.3);
+        }
+
+        .experiment-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+        }
+
+        .experiment-card.card-aoa::before {
+            background: linear-gradient(90deg, #10b981, #064e3b);
+        }
+
+        .experiment-card.card-coa::before {
+            background: linear-gradient(90deg, #f59e0b, #78350f);
+        }
+
+        .experiment-card.card-fsjp::before {
+            background: linear-gradient(90deg, #3b82f6, #1e3a8a);
+        }
+
+        .experiment-card:hover {
+            background: var(--bg-card-hover);
+            transform: translateY(-4px);
+            border-color: rgba(255, 255, 255, 0.15);
+            box-shadow: 0 12px 28px rgba(0, 0, 0, 0.5);
+        }
+
+        .card-top {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 14px;
+        }
+
+        .subject-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 4px 10px;
+            border-radius: 999px;
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+        }
+
+        .badge-aoa {
+            background: rgba(16, 185, 129, 0.15);
+            color: #34d399;
+            border: 1px solid rgba(16, 185, 129, 0.35);
+        }
+
+        .badge-coa {
+            background: rgba(245, 158, 11, 0.15);
+            color: #fbbf24;
+            border: 1px solid rgba(245, 158, 11, 0.35);
+        }
+
+        .badge-fsjp {
+            background: rgba(59, 130, 246, 0.15);
+            color: #60a5fa;
+            border: 1px solid rgba(59, 130, 246, 0.35);
+        }
+
+        .card-num {
+            font-family: 'Fira Code', monospace;
+            font-size: 12px;
+            color: var(--text-dim);
+            font-weight: 500;
+        }
+
+        .card-title {
+            font-family: 'Outfit', sans-serif;
+            font-size: 19px;
+            font-weight: 700;
+            color: var(--text-main);
+            margin-bottom: 10px;
+            line-height: 1.35;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .card-desc {
+            font-size: 13.5px;
+            color: var(--text-muted);
+            line-height: 1.55;
+            margin-bottom: 20px;
+            flex: 1;
+        }
+
+        .tags-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+            margin-bottom: 22px;
+        }
+
+        .tech-tag {
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            color: #cbd5e1;
+            padding: 3px 8px;
+            border-radius: 4px;
+            font-size: 11px;
+            font-family: 'Fira Code', monospace;
+        }
+
+        .card-actions {
+            display: flex;
+            gap: 10px;
+            margin-top: auto;
+        }
+
+        .card-btn {
+            flex: 1;
+            padding: 9px 14px;
+            border-radius: var(--radius-sm);
+            font-size: 13px;
+            font-weight: 600;
+            cursor: pointer;
+            border: none;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+            transition: all 0.2s ease;
+            text-decoration: none;
+        }
+
+        .btn-view-code {
+            background: #1e293b;
+            color: #f1f5f9;
+            border: 1px solid var(--border-subtle);
+        }
+
+        .btn-view-code:hover {
+            background: #334155;
+            color: white;
+            border-color: rgba(255, 255, 255, 0.2);
+        }
+
+        .btn-demo {
+            background: linear-gradient(135deg, #10b981, #059669);
+            color: white;
+            box-shadow: 0 4px 10px rgba(16, 185, 129, 0.3);
+        }
+
+        .btn-demo:hover {
+            background: linear-gradient(135deg, #34d399, #10b981);
+            transform: translateY(-1px);
+        }
+
+        /* Empty state */
+        .empty-state {
+            grid-column: 1 / -1;
+            text-align: center;
+            padding: 60px 20px;
+            background: var(--bg-card);
+            border-radius: var(--radius-lg);
+            border: 1px dashed var(--border-subtle);
+        }
+
+        .empty-state h3 {
+            font-size: 18px;
+            color: var(--text-main);
+            margin-bottom: 8px;
+        }
+
+        .empty-state p {
+            color: var(--text-dim);
+            font-size: 14px;
+        }
+
+        /* Modal Overlay */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.82);
+            backdrop-filter: blur(10px);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+            padding: 20px;
+        }
+
+        .modal-overlay.open {
+            display: flex;
+        }
+
+        .modal-dialog {
+            background: #0d121f;
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            border-radius: 14px;
+            width: 100%;
+            max-width: 950px;
+            max-height: 88vh;
+            display: flex;
+            flex-direction: column;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.8), 0 0 30px rgba(59, 130, 246, 0.15);
+            overflow: hidden;
+            animation: modalFadeIn 0.2s ease-out;
+        }
+
+        @keyframes modalFadeIn {
+            from { opacity: 0; transform: scale(0.97); }
+            to { opacity: 1; transform: scale(1); }
+        }
+
+        .modal-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 18px 24px;
+            border-bottom: 1px solid var(--border-subtle);
+            background: #090d17;
+        }
+
+        .modal-title-box {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .modal-title {
+            font-family: 'Outfit', sans-serif;
+            font-size: 18px;
+            font-weight: 700;
+            color: var(--text-main);
+        }
+
+        .modal-filename {
+            font-family: 'Fira Code', monospace;
+            font-size: 12px;
+            color: var(--accent-cyan);
+            background: rgba(56, 189, 248, 0.1);
+            padding: 3px 8px;
+            border-radius: 4px;
+        }
+
+        .modal-actions {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .modal-btn {
+            background: #1e293b;
+            color: var(--text-main);
+            border: 1px solid var(--border-subtle);
+            padding: 6px 14px;
+            border-radius: var(--radius-sm);
+            font-size: 12px;
+            font-weight: 600;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            transition: all 0.2s ease;
+        }
+
+        .modal-btn:hover {
+            background: #334155;
+            color: white;
+        }
+
+        .modal-btn-close {
+            background: transparent;
+            border: none;
+            color: var(--text-dim);
+            font-size: 22px;
+            cursor: pointer;
+            padding: 4px 8px;
+            border-radius: var(--radius-sm);
+            line-height: 1;
+        }
+
+        .modal-btn-close:hover {
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+        }
+
+        .modal-body {
+            padding: 0;
+            overflow: auto;
+            flex: 1;
+            background: #060911;
+        }
+
+        .code-container {
+            margin: 0;
+            padding: 20px;
+            font-family: 'Fira Code', Consolas, Monaco, monospace;
+            font-size: 13.5px;
+            line-height: 1.6;
+            color: #e2e8f0;
+            white-space: pre;
+            tab-size: 4;
+        }
+
+        /* Toast notification */
+        .toast {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background: #10b981;
+            color: white;
+            font-weight: 600;
+            padding: 12px 22px;
+            border-radius: 8px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
+            display: none;
+            align-items: center;
+            gap: 8px;
+            z-index: 2000;
+            font-size: 14px;
+            animation: toastIn 0.2s ease;
+        }
+
+        .toast.show {
+            display: flex;
+        }
+
+        @keyframes toastIn {
+            from { transform: translateY(20px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+
+        /* Footer */
+        .footer {
+            border-top: 1px solid var(--border-subtle);
+            padding: 40px 24px;
+            text-align: center;
+            color: var(--text-dim);
+            font-size: 14px;
+            margin-top: 60px;
+            background: rgba(11, 16, 28, 0.4);
+        }
+
+        .footer a {
+            color: var(--accent-cyan);
+            text-decoration: none;
+        }
+
+        .footer a:hover {
+            text-decoration: underline;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .navbar {
+                padding: 14px 20px;
+                flex-direction: column;
+                gap: 12px;
+                align-items: flex-start;
+            }
+            .nav-actions {
+                width: 100%;
+                justify-content: flex-start;
+            }
+            .controls-panel {
+                flex-direction: column;
+                align-items: stretch;
+            }
+            .search-box {
+                max-width: 100%;
+            }
+            .cards-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Navigation Header -->
+    <header class="navbar">
+        <a href="#" class="nav-brand">
+            <div class="nav-logo-badge">🔬</div>
+            <div class="nav-title-group">
+                <h1>Lab Experiments & Practicals</h1>
+                <span>Department of AI & Data Science • A.Y. 2025–26</span>
+            </div>
+        </a>
+        <div class="nav-actions">
+            <a href="FSJP/06_Static_Website_HTML_CSS_JS/login.html" target="_blank" class="nav-btn nav-btn-primary">
+                🏥 Launch Hospital HMS (Dark)
+            </a>
+            <a href="https://github.com/PrathamMewada459/Lab-Experiments" target="_blank" class="nav-btn nav-btn-secondary">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
+                GitHub Repo
+            </a>
+        </div>
+    </header>
+
+    <main class="container">
+        <!-- Hero Section -->
+        <section class="hero">
+            <div class="hero-badge">⚡ Laboratory Practical Repository • Complete 30 Experiments</div>
+            <h2>Algorithms, Architecture & Full-Stack Java</h2>
+            <p>Curated, tested, and thoroughly documented laboratory experiments with dark layout interfaces, microprocessors, dynamic programming, and web services.</p>
+
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <span class="stat-icon">📚</span>
+                    <div>
+                        <span class="stat-number">30</span>
+                        <span class="stat-label">Total Practicals</span>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <span class="stat-icon">🧠</span>
+                    <div>
+                        <span class="stat-number">10</span>
+                        <span class="stat-label">AOA Experiments</span>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <span class="stat-icon">💻</span>
+                    <div>
+                        <span class="stat-number">10</span>
+                        <span class="stat-label">COA Experiments</span>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <span class="stat-icon">☕</span>
+                    <div>
+                        <span class="stat-number">10</span>
+                        <span class="stat-label">FSJP Experiments</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Controls Section -->
+        <section class="controls-panel">
+            <div class="filter-tabs">
+                <button class="tab-btn active" data-filter="all">All Experiments <span class="tab-count">30</span></button>
+                <button class="tab-btn tab-aoa" data-filter="AOA">🧠 AOA <span class="tab-count">10</span></button>
+                <button class="tab-btn tab-coa" data-filter="COA">💻 COA <span class="tab-count">10</span></button>
+                <button class="tab-btn tab-fsjp" data-filter="FSJP">☕ FSJP <span class="tab-count">10</span></button>
+            </div>
+            <div class="search-box">
+                <span class="search-icon">🔍</span>
+                <input type="text" id="searchInput" class="search-input" placeholder="Search experiments, tags, or concepts...">
+            </div>
+        </section>
+
+        <div class="results-summary">
+            <span id="resultsCount">Showing 30 experiments</span>
+            <span style="font-size:12px; color:var(--text-dim);">Click 'View Code' to inspect implementations</span>
+        </div>
+
+        <!-- Cards Grid -->
+        <section class="cards-grid" id="cardsGrid">
+            <!-- Dynamically populated via JavaScript -->
+        </section>
+    </main>
+
+    <!-- Code Viewer Modal -->
+    <div class="modal-overlay" id="codeModal">
+        <div class="modal-dialog">
+            <header class="modal-header">
+                <div class="modal-title-box">
+                    <span id="modalIcon" style="font-size:22px;">📄</span>
+                    <div>
+                        <h3 class="modal-title" id="modalTitle">Experiment Title</h3>
+                        <span class="modal-filename" id="modalFilename">File.c</span>
+                    </div>
+                </div>
+                <div class="modal-actions">
+                    <button class="modal-btn" id="copyCodeBtn">📋 Copy Code</button>
+                    <button class="modal-btn-close" id="closeModalBtn">&times;</button>
+                </div>
+            </header>
+            <div class="modal-body">
+                <pre class="code-container"><code id="modalCode"></code></pre>
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast Notification -->
+    <div class="toast" id="toast">
+        <span>✓</span> Code copied to clipboard!
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <p>Curated by <a href="https://github.com/PrathamMewada459" target="_blank">Pratham Mewada</a> • Lab Experiments Repository</p>
+        <p style="margin-top:6px; font-size:12px;">All source codes, algorithms, and dark layout themes are ready for academic and practical evaluation.</p>
+    </footer>
+
+    <script>
+        const experiments = [{"id": "AOA_01_Insertion_Sort_Selection_Sort_c", "rel_path": "AOA/01_Insertion_Sort_Selection_Sort.c", "subject": "AOA", "num": "Exp 01", "title": "Insertion Sort & Selection Sort", "tags": ["C", "Sorting", "Algorithm Analysis"], "desc": "Implementation and comparison of Insertion Sort and Selection Sort algorithms with time complexity tracking.", "icon": "\ud83e\udde0", "has_demo": false, "demo_url": "", "code": "#include<stdio.h>\n#include<conio.h>\nvoid insertionSort(int arr[], int n) {\n    for (int i = 1; i < n; i++) {\n        int key = arr[i];\n        int j = i - 1;\n        while (j >= 0 && arr[j] > key) {\n            arr[j + 1] = arr[j];\n            j--;\n        }\n        arr[j + 1] = key;\n    }\n}\nvoid selectionSort(int arr[], int n) {\n    for (int i = 0; i < n - 1; i++) {\n        int min_idx = i;\n        for (int j = i + 1; j < n; j++) {\n            if (arr[j] < arr[min_idx]) {\n                min_idx = j;\n            }\n        }\n        int temp = arr[min_idx];\n        arr[min_idx] = arr[i];\n        arr[i] = temp;\n    }\n}\nint main()\n{\n    int n;\n    printf(\"enter the size of array: \");\n    scanf(\"%d\",&n);\n    int array[n];\n    printf(\"enter the array elements: \");\n    for(int i = 0;i<n;i++)\n    {\n        scanf(\"%d\",&array[i]);\n    }\n    printf(\"The entered array is: \");\n    for(int i = 0; i < n; i++)\n    {\n        printf(\"%d \", array[i]);\n    }\n    printf(\"\\n\");\n    int choice;\n    printf(\"\\nSelect a sorting algorithm\\n\");\n    printf(\"1.Isertion sort\\n\");\n    printf(\"2.selection sort\\n\");\n    printf(\"enter choice 1 or 2 : \");\n    scanf(\"%d\",&choice);\n    if (choice == 1) {\n        insertionSort(array, n);\n        printf(\"\\nArray sorted using Insertion Sort: \");\n    }\n    else if (choice == 2) {\n        selectionSort(array, n);\n        printf(\"\\nArray sorted using Selection Sort: \");\n    }\n    else {\n        printf(\"\\nInvalid choice! Exiting program.\\n\");\n        return 1; // Terminates the program early if choice is invalid\n    }\n    for (int i = 0; i < n; i++) {\n        printf(\"%d \", array[i]);\n    }\n    printf(\"\\n\");\n}\n"}, {"id": "AOA_02_Binary_Search_c", "rel_path": "AOA/02_Binary_Search.c", "subject": "AOA", "num": "Exp 02", "title": "Binary Search", "tags": ["C", "Searching", "O(log n)"], "desc": "Efficient divide-and-conquer binary search algorithm on sorted numerical arrays.", "icon": "\ud83d\udd0d", "has_demo": false, "demo_url": "", "code": "#include <stdio.h>\nint binarySearch(int arr[], int size, int target) {\n    int low = 0;\n    int high = size - 1;\n    while (low <= high)\n    {\n        int mid = (high+low)/2;\n        if (arr[mid]==target)\n        {\n            return mid;\n        }\n        if (arr[mid]<target)\n        {\n            low = mid+1;\n        }\n        else\n        {\n            high = mid - 1;\n        }\n    }\n    return -1;\n}\nint main()\n{\n    int size ,  target;\n    printf(\"enter the number of elements in array: \",size);\n    scanf(\"%d\",&size);\n    int data[size];\n    printf(\"enter the sorted array: \");\n     for (int i = 0; i < size; i++)\n     {\n        printf(\"Element %d: \", i);\n        scanf(\"%d\", &data[i]);\n     }\n    printf(\"Enter the value to search for: \");\n    scanf(\"%d\", &target);\n    int result = binarySearch(data, size, target);\n    if (result != -1)\n    {\n        printf(\"\\nSuccess: Element found at index %d.\\n\", result);\n    }\n    else\n    {\n        printf(\"\\nFailure: Element not found in the array.\\n\");\n    }\n    return 0;\n}\n"}, {"id": "AOA_03_Quick_Sort_c", "rel_path": "AOA/03_Quick_Sort.c", "subject": "AOA", "num": "Exp 03", "title": "Quick Sort", "tags": ["C", "Divide & Conquer", "Partitioning"], "desc": "In-place partitioning and recursive sorting using pivot selection with average time O(n log n).", "icon": "\u26a1", "has_demo": false, "demo_url": "", "code": "#include <iostream>\nusing namespace std;\nint step = 1;\nvoid printArray(int arr[], int n) {\n    for (int i = 0; i < n; i++) {\n        cout << arr[i] << \" \";\n    }\n    cout << endl;\n}\nint partition(int arr[], int low, int high, int n) {\n    int pivot = arr[high];\n    int i = low - 1;\n    for (int j = low; j < high; j++) {\n        if (arr[j] < pivot) {\n            i++;\n            swap(arr[i], arr[j]);\n        }\n    }\n    swap(arr[i + 1], arr[high]);\n    int pivotIndex = i + 1;\n    cout << \"Step \" << step++ << \":\" << endl;\n    cout << \"  Sub-array range : [\" << low << \" to \" << high << \"]\" << endl;\n    cout << \"  Chosen Pivot    : \" << pivot << endl;\n    cout << \"  Pivot placed at : Index \" << pivotIndex << endl;\n    cout << \"  Current Array   : \";\n    printArray(arr, n);\n    cout << \"-----------------------------------\" << endl;\n    return pivotIndex;\n}\nvoid quickSort(int arr[], int low, int high, int n) {\n    if (low < high) {\n        int pi = partition(arr, low, high, n);\n        quickSort(arr, low, pi - 1, n);\n        quickSort(arr, pi + 1, high, n);\n    }\n}\nint main() {\n    int n;\n    cout << \"Enter the number of elements: \";\n    cin >> n;\n    int arr[n];\n    cout << \"Enter \" << n << \" elements: \";\n    for (int i = 0; i < n; i++) {\n        cin >> arr[i];\n    }\n    cout << \"\\nInitial Array: \";\n    printArray(arr, n);\n    cout << \"-----------------------------------\\n\";\n    quickSort(arr, 0, n - 1, n);\n    cout << \"Final Sorted Array: \";\n    printArray(arr, n);\n    return 0;\n}\n"}, {"id": "AOA_04_Fractional_Knapsack_c", "rel_path": "AOA/04_Fractional_Knapsack.c", "subject": "AOA", "num": "Exp 04", "title": "Fractional Knapsack Problem", "tags": ["C", "Greedy Algorithm", "Optimization"], "desc": "Greedy approach to maximize total profit by taking fractions of items based on value-to-weight ratio.", "icon": "\ud83c\udf92", "has_demo": false, "demo_url": "", "code": "#include <stdio.h>\nvoid printArrays(int n, float p[], float w[], float r[]) {\n    printf(\"Profit:  \");\n    for (int i = 0; i < n; i++) printf(\"%.1f\\t\", p[i]);\n    printf(\"\\nWeight:  \");\n    for (int i = 0; i < n; i++) printf(\"%.1f\\t\", w[i]);\n    printf(\"\\nRatio:   \");\n    for (int i = 0; i < n; i++) printf(\"%.2f\\t\", r[i]);\n    printf(\"\\n\\n\");\n}\nint main() {\n    int n;\n    float capacity, totalProfit = 0.0;\n    printf(\"Enter number of items: \");\n    scanf(\"%d\", &n);\n    float p[n], w[n], r[n], x[n];\n    printf(\"Enter profits: \");\n    for (int i = 0; i < n; i++) {\n        scanf(\"%f\", &p[i]);\n    }\n    printf(\"Enter weights: \");\n    for (int i = 0; i < n; i++) {\n        scanf(\"%f\", &w[i]);\n    }\n    printf(\"Enter knapsack capacity: \");\n    scanf(\"%f\", &capacity);\n    for (int i = 0; i < n; i++) {\n        r[i] = p[i] / w[i];\n        x[i] = 0.0;\n    }\n    printf(\"\\n--- Initial Arrays ---\\n\");\n    printArrays(n, p, w, r);\n    for (int i = 0; i < n - 1; i++) {\n        for (int j = 0; j < n - i - 1; j++) {\n            if (r[j] < r[j + 1]) {\n                float temp = r[j]; r[j] = r[j + 1]; r[j + 1] = temp;\n                temp = p[j]; p[j] = p[j + 1]; p[j + 1] = temp;\n                temp = w[j]; w[j] = w[j + 1]; w[j + 1] = temp;\n            }\n        }\n    }\n    printf(\"--- Arrays After Sorting by Ratio ---\\n\");\n    printArrays(n, p, w, r);\n    float remaining = capacity;\n    for (int i = 0; i < n; i++) {\n        if (w[i] <= remaining) {\n            x[i] = 1.0;\n            totalProfit += p[i];\n            remaining -= w[i];\n        } else {\n            x[i] = remaining / w[i];\n            totalProfit += p[i] * x[i];\n            break;\n        }\n    }\n    printf(\"--- Selected Fractions Array (x) ---\\n\");\n    printf(\"x = [ \");\n    for (int i = 0; i < n; i++) printf(\"%.2f \", x[i]);\n    printf(\"]\\n\\n\");\n    printf(\"Total Maximum Profit = %.2f\\n\", totalProfit);\n    return 0;\n}\n"}, {"id": "AOA_05_Prim_s_Kruskal_s_c", "rel_path": "AOA/05_Prim_s_Kruskal_s.c", "subject": "AOA", "num": "Exp 05", "title": "Prim's & Kruskal's Algorithms", "tags": ["C", "Graph Theory", "MST", "Greedy"], "desc": "Minimum Spanning Tree (MST) computation for weighted undirected graphs using Prim's and Kruskal's methods.", "icon": "\ud83c\udf32", "has_demo": false, "demo_url": "", "code": "#include <stdio.h>\n#define INF 9999\nint main() {\n    int n, minCost = 0, edgeCount = 0;\n    printf(\"Enter number of vertices: \");\n    scanf(\"%d\", &n);\n    int cost[n][n], selected[n];\n    printf(\"Enter adjacency matrix (0 for no edge):\\n\");\n    for (int i = 0; i < n; i++) {\n        selected[i] = 0;\n        for (int j = 0; j < n; j++) {\n            scanf(\"%d\", &cost[i][j]);\n            if (cost[i][j] == 0) cost[i][j] = INF;\n        }\n    }\n    selected[0] = 1;\n    printf(\"\\nInitial Selected Array: [ \");\n    for (int i = 0; i < n; i++) printf(\"%d \", selected[i]);\n    printf(\"]\\n\\n\");\n    while (edgeCount < n - 1) {\n        int min = INF, u = 0, v = 0;\n        for (int i = 0; i < n; i++) {\n            if (selected[i]) {\n                for (int j = 0; j < n; j++) {\n                    if (!selected[j] && cost[i][j] < min) {\n                        min = cost[i][j];\n                        u = i;\n                        v = j;\n                    }\n                }\n            }\n        }\n        selected[v] = 1;\n        minCost += min;\n        edgeCount++;\n        printf(\"Edge (%d, %d) = %d\\n\", u, v, min);\n        printf(\"Selected Array: [ \");\n        for (int i = 0; i < n; i++) printf(\"%d \", selected[i]);\n        printf(\"]\\n\\n\");\n    }\n    printf(\"Total Minimum Cost = %d\\n\", minCost);\n    return 0;\n}\n"}, {"id": "AOA_06_Floyd_Warshall_c", "rel_path": "AOA/06_Floyd_Warshall.c", "subject": "AOA", "num": "Exp 06", "title": "Floyd-Warshall Algorithm", "tags": ["C", "Dynamic Programming", "All-Pairs Shortest Path"], "desc": "Dynamic programming algorithm to find shortest paths between all pairs of vertices in an edge-weighted directed graph.", "icon": "\ud83d\uddfa\ufe0f", "has_demo": false, "demo_url": "", "code": "#include <stdio.h>\n#define INF 999\nvoid printMatrix(int dist[][20], int n)\n{\n    int i, j;\n    for (i = 0; i < n; i++)\n    {\n        for (j = 0; j < n; j++)\n        {\n            if (dist[i][j] == INF)\n                printf(\"INF\\t\");\n            else\n                printf(\"%d\\t\", dist[i][j]);\n        }\n        printf(\"\\n\");\n    }\n}\nvoid floydWarshall(int graph[][20], int n)\n{\n    int dist[20][20];\n    int i, j, k;\n    for (i = 0; i < n; i++)\n    {\n        for (j = 0; j < n; j++)\n        {\n            dist[i][j] = graph[i][j];\n        }\n    }\n    printf(\"\\nInitial Matrix:\\n\");\n    printMatrix(dist, n);\n    for (k = 0; k < n; k++)\n    {\n        for (i = 0; i < n; i++)\n        {\n            for (j = 0; j < n; j++)\n            {\n                if (dist[i][k] != INF && dist[k][j] != INF &&\n                    dist[i][k] + dist[k][j] < dist[i][j])\n                {\n                    dist[i][j] = dist[i][k] + dist[k][j];\n                }\n            }\n        }\n        printf(\"\\nAfter Iteration %d (Vertex %d as Intermediate):\\n\",\n               k + 1, k + 1);\n        printMatrix(dist, n);\n    }\n    printf(\"\\nFinal All Pair Shortest Path Matrix:\\n\");\n    printMatrix(dist, n);\n}\nint main()\n{\n    int graph[20][20];\n    int n, i, j;\n    printf(\"Enter number of vertices: \");\n    scanf(\"%d\", &n);\n    printf(\"\\nEnter the adjacency matrix:\\n\");\n    printf(\"Enter %d for INF (no direct edge).\\n\\n\", INF);\n    for (i = 0; i < n; i++)\n    {\n        for (j = 0; j < n; j++)\n        {\n            scanf(\"%d\", &graph[i][j]);\n            if (i == j)\n                graph[i][j] = 0;\n        }\n    }\n    floydWarshall(graph, n);\n    return 0;\n}\n"}, {"id": "AOA_07_Sum_of_Subset_c", "rel_path": "AOA/07_Sum_of_Subset.c", "subject": "AOA", "num": "Exp 07", "title": "Sum of Subset Problem", "tags": ["C", "Backtracking", "Recursion"], "desc": "Backtracking algorithm to find all unique subsets whose sum equals a specified target number.", "icon": "\ud83d\udd22", "has_demo": false, "demo_url": "", "code": "#include <stdio.h>\n#include <stdlib.h>\n#define MAX 50\nint S[MAX];\nint subset[MAX];\nint n;\nint target;\nint found = 0;\nvoid sortSet() {\n    int i, j, min_idx, temp;\n    for (i = 0; i < n - 1; i++) {\n        min_idx = i;\n        for (j = i + 1; j < n; j++) {\n            if (S[j] < S[min_idx])\n                min_idx = j;\n        }\n        temp = S[min_idx];\n        S[min_idx] = S[i];\n        S[i] = temp;\n    }\n}\nvoid subsetSum(int index, int subSize, int current_sum) {\n    if (current_sum == target) {\n        found = 1;\n        printf(\"{ \");\n        for (int i = 0; i < subSize; i++) {\n            printf(\"%d \", subset[i]);\n        }\n        printf(\"}\\n\");\n        return;\n    }\n    if (current_sum > target || index >= n) {\n        return;\n    }\n    for (int i = index; i < n; i++) {\n        subset[subSize] = S[i];\n        current_sum += S[i];\n        subsetSum(i + 1, subSize + 1, current_sum);\n        current_sum -= S[i];\n    }\n}\nint main() {\n    printf(\"Enter the number of elements in the set (Max %d): \", MAX);\n    if (scanf(\"%d\", &n) != 1 || n <= 0 || n > MAX) {\n        printf(\"Invalid number of elements.\\n\");\n        return 1;\n    }\n    printf(\"Enter %d positive integers:\\n\", n);\n    for (int i = 0; i < n; i++) {\n        printf(\"Element %d: \", i + 1);\n        if (scanf(\"%d\", &S[i]) != 1 || S[i] < 0) {\n            printf(\"Invalid input. Please enter positive integers only.\\n\");\n            return 1;\n        }\n    }\n    printf(\"Enter the target sum (X): \");\n    if (scanf(\"%d\", &target) != 1 || target < 0) {\n        printf(\"Invalid target sum.\\n\");\n        return 1;\n    }\n    sortSet();\n    printf(\"\\nSorted Set S: { \");\n    for(int i = 0; i < n; i++) {\n        printf(\"%d \", S[i]);\n    }\n    printf(\"}\\n\");\n    printf(\"Target Sum X: %d\\n\\n\", target);\n    printf(\"Subsets matching the target sum:\\n\");\n    subsetSum(0, 0, 0);\n    if (!found) {\n        printf(\"No valid subset found.\\n\");\n    }\n    return 0;\n}\n"}, {"id": "AOA_08_N_Queens_c", "rel_path": "AOA/08_N_Queens.c", "subject": "AOA", "num": "Exp 08", "title": "N-Queens Problem", "tags": ["C", "Backtracking", "State Space Tree"], "desc": "Placement of N non-attacking chess queens on an N\u00d7N board using recursive backtracking.", "icon": "\ud83d\udc51", "has_demo": false, "demo_url": "", "code": "#include <stdio.h>\n#include <stdbool.h>\n#define N 4\nvoid printSolution(int board[N][N]) {\n    for (int i = 0; i < N; i++) {\n        for (int j = 0; j < N; j++) {\n            if (board[i][j]) {\n                printf(\" Q \");\n            } else {\n                printf(\" . \");\n            }\n        }\n        printf(\"\\n\");\n    }\n    printf(\"\\n\");\n}\nbool isSafe(int board[N][N], int row, int col) {\n    int i, j;\n    for (i = 0; i < row; i++) {\n        if (board[i][col]) {\n            return false;\n        }\n    }\n    for (i = row, j = col; i >= 0 && j >= 0; i--, j--) {\n        if (board[i][j]) {\n            return false;\n        }\n    }\n    for (i = row, j = col; i >= 0 && j < N; i--, j++) {\n        if (board[i][j]) {\n            return false;\n        }\n    }\n    return true;\n}\nbool solveNQUtil(int board[N][N], int row) {\n    if (row >= N) {\n        return true;\n    }\n    for (int col = 0; col < N; col++) {\n        if (isSafe(board, row, col)) {\n            // Place the queen\n            board[row][col] = 1;\n            if (solveNQUtil(board, row + 1)) {\n                return true;\n            }\n            board[row][col] = 0;\n        }\n    }\n    return false;\n}\nbool solveNQ() {\n    int board[N][N] = {0};\n    if (!solveNQUtil(board, 0)) {\n        printf(\"Solution does not exist for N = %d\\n\", N);\n        return false;\n    }\n    printf(\"One valid solution for N = %d:\\n\\n\", N);\n    printSolution(board);\n    return true;\n}\nint main() {\n    solveNQ();\n    return 0;\n}\n"}, {"id": "AOA_09_Rabin_Karp_c", "rel_path": "AOA/09_Rabin_Karp.c", "subject": "AOA", "num": "Exp 09", "title": "Rabin-Karp String Matching", "tags": ["C", "String Matching", "Rolling Hash"], "desc": "String searching algorithm utilizing rolling hash techniques to find patterns in text in linear expected time.", "icon": "\ud83d\udcdc", "has_demo": false, "demo_url": "", "code": "#include <stdio.h>\n#include <string.h>\n#define d 256\n#define q 101\nvoid rabinKarp(char text[], char pattern[])\n{\n    int n = strlen(text);\n    int m = strlen(pattern);\n    int i, j;\n    int p = 0;\n    int t = 0;\n    int h = 1;\n    int found = 0;\n    for (i = 0; i < m - 1; i++)\n        h = (h * d) % q;\n    for (i = 0; i < m; i++)\n    {\n        p = (d * p + pattern[i]) % q;\n        t = (d * t + text[i]) % q;\n    }\n        for (i = 0; i <= n - m; i++)\n    {\n        if (p == t)\n        {\n            for (j = 0; j < m; j++)\n            {\n                if (text[i + j] != pattern[j])\n                    break;\n            }\n            if (j == m)\n            {\n                printf(\"Pattern found at index %d\\n\", i);\n                found = 1;\n            }\n        }\n        if (i < n - m)\n        {\n            t = (d * (t - text[i] * h) + text[i + m]) % q;\n            if (t < 0)\n                t = t + q;\n        }\n    }\n    if (!found)\n        printf(\"Pattern not found in the text.\\n\");\n}\nint main()\n{\n    char text[500];\n    char pattern[100];\n    printf(\"Enter the text: \");\n    fgets(text, sizeof(text), stdin);\n    text[strcspn(text, \"\\n\")] = '\\0';\n    printf(\"Enter the pattern: \");\n    fgets(pattern, sizeof(pattern), stdin);\n    pattern[strcspn(pattern, \"\\n\")] = '\\0';\n    if (strlen(pattern) == 0 || strlen(pattern) > strlen(text))\n    {\n        printf(\"Invalid pattern.\\n\");\n        return 0;\n    }\n    rabinKarp(text, pattern);\n    return 0;\n}\n"}, {"id": "AOA_10_Min_Max_Divide_Conquer_c", "rel_path": "AOA/10_Min_Max_Divide_Conquer.c", "subject": "AOA", "num": "Exp 10", "title": "Min-Max via Divide & Conquer", "tags": ["C", "Divide & Conquer", "Extrema Finding"], "desc": "Simultaneous minimum and maximum computation in an array reducing total comparisons from 2(n-1) to 3n/2 - 2.", "icon": "\u2696\ufe0f", "has_demo": false, "demo_url": "", "code": "#include <stdio.h>\nstruct MinMax\n{\n    int min;\n    int max;\n};\nstruct MinMax findMinMax(int arr[], int low, int high)\n{\n    struct MinMax result, left, right;\n    int mid;\n    if (low == high)\n    {\n        result.min = arr[low];\n        result.max = arr[low];\n        return result;\n    }\n    if (high == low + 1)\n    {\n        if (arr[low] < arr[high])\n        {\n            result.min = arr[low];\n            result.max = arr[high];\n        }\n        else\n        {\n            result.min = arr[high];\n            result.max = arr[low];\n        }\n        return result;\n    }\n    mid = (low + high) / 2;\n    left = findMinMax(arr, low, mid);\n    right = findMinMax(arr, mid + 1, high);\n    result.min = (left.min < right.min) ? left.min : right.min;\n    result.max = (left.max > right.max) ? left.max : right.max;\n    return result;\n}\nint main()\n{\n    int arr[100];\n    int n, i;\n    struct MinMax result;\n    printf(\"Enter the number of elements: \");\n    scanf(\"%d\", &n);\n    printf(\"Enter the elements:\\n\");\n    for (i = 0; i < n; i++)\n    {\n        scanf(\"%d\", &arr[i]);\n    }\n    result = findMinMax(arr, 0, n - 1);\n    printf(\"\\nMinimum Element = %d\\n\", result.min);\n    printf(\"Maximum Element = %d\\n\", result.max);\n    return 0;\n}\n"}, {"id": "COA_01_Decimal_Hex_to_Binary_c", "rel_path": "COA/01_Decimal_Hex_to_Binary.c", "subject": "COA", "num": "Exp 01", "title": "Decimal & Hex to Binary Conversion", "tags": ["C", "Radix Conversion", "Bit Manipulation"], "desc": "Conversion routines transforming base-10 and base-16 integers into raw binary bit representations.", "icon": "0\ufe0f\u20e3", "has_demo": false, "demo_url": "", "code": "A. Decimal to Binary\n #include <stdio.h>\nint main() {\n  int n, binary[32], i = 0;\n  printf(\"Enter a decimal number: \");\n  scanf(\"%d\", &n);\n  while (n > 0) {\n       binary[i] = n % 2;\n       n = n / 2;\n       i++;\n  }\n  printf(\"Binary equivalent: \");\n  for (i = i - 1; i >= 0; i--)\n       printf(\"%d\", binary[i]);\n    return 0;\n}\n     B. Hexadecimal to Binary\n#include <stdio.h>\nint main() {\n    char hex[20];\n    int i = 0;\n    printf(\"Enter a hexadecimal number: \");\n    scanf(\"%s\", hex);\n    while (hex[i] != '\\0') {\n      if (hex[i] == '0') printf(\"0000\");\n      else if (hex[i] == '1') printf(\"0001\");\n      else if (hex[i] == '2') printf(\"0010\");\n      else if (hex[i] == '3') printf(\"0011\");\n      else if (hex[i] == '4') printf(\"0100\");\n      else if (hex[i] == '5') printf(\"0101\");\n      else if (hex[i] == '6') printf(\"0110\");\n      else if (hex[i] == '7') printf(\"0111\");\n      else if (hex[i] == '8') printf(\"1000\");\n         else if (hex[i] == '9') printf(\"1001\");\n         else if (hex[i] == 'A' || hex[i] == 'a') printf(\"1010\");\n         else if (hex[i] == 'B' || hex[i] == 'b') printf(\"1011\");\n         else if (hex[i] == 'C' || hex[i] == 'c') printf(\"1100\");\n         else if (hex[i] == 'D' || hex[i] == 'd') printf(\"1101\");\n         else if (hex[i] == 'E' || hex[i] == 'e') printf(\"1110\");\n         else if (hex[i] == 'F' || hex[i] == 'f') printf(\"1111\");\n         else printf(\"Invalid\");\n         i++;\n     }\n     return 0;\n}\n"}, {"id": "COA_02_2_s_Complement_c", "rel_path": "COA/02_2_s_Complement.c", "subject": "COA", "num": "Exp 02", "title": "2's Complement Representation", "tags": ["C", "Signed Arithmetic", "Bitwise NOT"], "desc": "Calculation of signed two's complement binary representation of integer values.", "icon": "\ud83d\udd04", "has_demo": false, "demo_url": "", "code": "#include <stdio.h>\n#include <string.h>\nint main()\n{\n    char binary[100];\n    int i, len;\n    printf(\"Enter a binary number: \");\n    scanf(\"%s\", binary);\n    len = strlen(binary);\n    for(i = len - 1; i >= 0; i--)\n    {\n        if(binary[i] == '1')\n             break;\n    }\n    if(i == -1)\n    {\n        printf(\"2's Complement: 1%s\\n\", binary);\n    }\n    else\n    {\n        for(i = i - 1; i >= 0; i--)\n        {\n             if(binary[i] == '1')\n                      binary[i] = '0';\n                 else\n                      binary[i] = '1';\n            }\n            printf(\"2's Complement: %s\\n\", binary);\n     }\n     return 0;\n}\n"}, {"id": "COA_03_8086_Arithmetic_8_bit_asm", "rel_path": "COA/03_8086_Arithmetic_8_bit.asm", "subject": "COA", "num": "Exp 03", "title": "8086 8-bit Arithmetic Operations", "tags": ["8086 ASM", "Assembly", "ALU", "Registers"], "desc": "8086 microprocessor assembly code implementing 8-bit addition, subtraction, multiplication, and division.", "icon": "\ud83d\udcbb", "has_demo": false, "demo_url": "", "code": ".MODEL SMALL\n.STACK 100H\n.DATA\nDATA1 DB 10\nDATA2 DB 05\nADD_RES DB ?\nSUB_RES DB ?\nMUL_RES DW ?\nQUOTIENT DB ?\nREMAINDER DB ?\n.CODE\nMAIN PROC\nMOV AX, @DATA\nMOV DS, AX\n;-------------------------\n; Addition\n;-------------------------\nMOV AL, DATA1\nMOV BL, DATA2\nADD AL, BL\nMOV ADD_RES, AL\n;-------------------------\n; Subtraction\n;-------------------------\nMOV AL, DATA1\nMOV BL, DATA2\nSUB AL, BL\nMOV SUB_RES, AL\n;-------------------------\n; Multiplication\n;-------------------------\nMOV AL, DATA1\nMOV BL, DATA2\nMUL BL\nMOV MUL_RES, AX\n;-------------------------\n; Division\n;-------------------------\nMOV AX, 0000H\nMOV AL, DATA1\nMOV BL, DATA2\nDIV BL\nMOV QUOTIENT, AL\nMOV REMAINDER, AH\nMOV AH,4CH\nINT 21H\nMAIN ENDP\nEND MAIN\n"}, {"id": "COA_04_8086_Logical_Operations_asm", "rel_path": "COA/04_8086_Logical_Operations.asm", "subject": "COA", "num": "Exp 04", "title": "8086 Logical Operations", "tags": ["8086 ASM", "AND/OR/XOR/NOT", "Flags"], "desc": "Bitwise logic manipulations including AND, OR, XOR, and NOT executed at CPU instruction level.", "icon": "\ud83d\udd0c", "has_demo": false, "demo_url": "", "code": ".MODEL SMALL\n.STACK 100H\n.DATA\n  DATA1 DB 92H               ; First 8-bit operand (92H / 10010010B)\n  DATA2 DB 6AH               ; Second 8-bit operand (6AH / 01101010B)\n  AND_RES DB ?               ; Variable to store AND operation result\n  OR_RES DB ?               ; Variable to store OR operation result\n  XOR_RES DB ?               ; Variable to store XOR operation result\n NOT_RES DB ?                 ; Variable to store NOT operation result\n.CODE\nMAIN PROC\n ; Initialize Data Segment\n MOV AX, @DATA\n MOV DS, AX\n ;-----------------------------------------\n ; 1. AND Operation\n ;-----------------------------------------\n MOV AL, DATA1                 ; AL = 92H\n MOV BL, DATA2                 ; BL = 6AH\n AND AL, BL                 ; AL = AL AND BL (Result = 02H)\n MOV AND_RES, AL                  ; Store AND result\n ;-----------------------------------------\n ; 2. OR Operation\n ;-----------------------------------------\n MOV AL, DATA1                 ; AL = 92H\n MOV BL, DATA2                 ; BL = 6AH\n OR AL, BL                ; AL = AL OR BL (Result = FAH)\n MOV OR_RES, AL                  ; Store OR result\n ;-----------------------------------------\n ; 3. XOR Operation\n ;-----------------------------------------\n MOV AL, DATA1                 ; AL = 92H\n MOV BL, DATA2                 ; BL = 6AH\n XOR AL, BL                 ; AL = AL XOR BL (Result = F8H)\n MOV XOR_RES, AL                  ; Store XOR result\n ;-----------------------------------------\n ; 4. NOT Operation\n ;-----------------------------------------\n MOV AL, DATA1                 ; AL = 92H\n NOT AL                  ; AL = NOT AL (Result = 6DH)\n MOV NOT_RES, AL                  ; Store NOT result\n ; Return control to DOS\n MOV AH, 4CH\n INT 21H\n MAIN ENDP\nEND MAIN\n"}, {"id": "COA_05_Booth_s_Multiplication_c", "rel_path": "COA/05_Booth_s_Multiplication.c", "subject": "COA", "num": "Exp 05", "title": "Booth's Multiplication Algorithm", "tags": ["C", "Hardware Multiplier", "Arithmetic"], "desc": "Simulation of Booth's algorithm for multiplying signed binary numbers in two's complement notation.", "icon": "\u2716\ufe0f", "has_demo": false, "demo_url": "", "code": "#include <stdio.h>\nvoid arithmeticRightShift(int *A, int *Q, int *Q_1, int n) {\n    int MSB_A = (*A >> (n - 1)) & 1;\n    int LSB_A = *A & 1;\n    int LSB_Q = *Q & 1;\n    *A = (*A >> 1) | (MSB_A << (n - 1));\n    *Q = (*Q >> 1) | (LSB_A << (n - 1));\n    *Q_1 = LSB_Q;\n}\nint main() {\n    int M, Q, A = 0, Q_1 = 0;\nint n = 8;\nprintf(\"Enter Multiplicand (M): \");\nscanf(\"%d\", &M);\nprintf(\"Enter Multiplier (Q): \");\nscanf(\"%d\", &Q);\nM = M & 0xFF;\nQ = Q & 0xFF;\nfor (int i = 0; i < n; i++) {\n    int Q_0 = Q & 1;\n    if (Q_0 == 0 && Q_1 == 1) {\n        A = (A + M) & 0xFF;\n    } else if (Q_0 == 1 && Q_1 == 0) {\n        A = (A - M) & 0xFF;\n    }\n    arithmeticRightShift(&A, &Q, &Q_1, n);\n}\nint result = (A << 8) | Q;\nif (result & 0x8000) {\n    result |= 0xFFFF0000;\n}\n    printf(\"Product = %d\\n\", result);\n    return 0;\n}\n"}, {"id": "COA_06_Restoring_Division_c", "rel_path": "COA/06_Restoring_Division.c", "subject": "COA", "num": "Exp 06", "title": "Restoring Division Algorithm", "tags": ["C", "Hardware Divider", "Shift & Subtract"], "desc": "Binary hardware division simulation using quotient shifting and accumulator restoring techniques.", "icon": "\u2797", "has_demo": false, "demo_url": "", "code": "#include <stdio.h>\nint main() {\n  int Q, M;\n  int A = 0;\n  int n = 8;\n  printf(\"Enter Dividend (Q): \");\n  scanf(\"%d\", &Q);\n  printf(\"Enter Divisor (M): \");\n  scanf(\"%d\", &M);\n  if (M == 0) {\n      printf(\"Error: Division by zero is not allowed.\\n\");\n      return 0;\n  }\n  for (int i = 0; i < n; i++) {\n      A = (A << 1) | ((Q >> (n - 1)) & 1);\n      Q = (Q << 1) & 0xFF;\n        A = A - M;\n        if (A < 0) {\n            A = A + M;\n        } else {\n            Q = Q | 1;\n        }\n    }\n    printf(\"\\nQuotient = %d\\n\", Q);\n    printf(\"Remainder = %d\\n\", A);\n    return 0;\n}\n"}, {"id": "COA_07_Direct_Mapped_Cache_c", "rel_path": "COA/07_Direct_Mapped_Cache.c", "subject": "COA", "num": "Exp 07", "title": "Direct Mapped Cache Simulation", "tags": ["C", "Memory Hierarchy", "Cache Hit/Miss"], "desc": "Cache memory simulator modeling tag arrays, line indexing, and measuring cache hit and miss ratios.", "icon": "\ud83d\uddc4\ufe0f", "has_demo": false, "demo_url": "", "code": "#include <stdio.h>\n#include <stdlib.h>\n#define MAX_LINES 100\nint main() {\n  int cache[MAX_LINES];\n  int status[MAX_LINES];\n  int num_lines, block_num, choice;\n  int cache_line, i;\n  system(\"cls\");\n  printf(\"Enter the number of cache lines: \");\n  scanf(\"%d\", &num_lines);\n  for (i = 0; i < num_lines; i++) {\n     status[i] = 0;\n    cache[i] = -1;\n}\ndo {\n    printf(\"\\n==========================================\\n\");\n    printf(\"Enter the memory block number to access: \");\n    scanf(\"%d\", &block_num);\n    cache_line = block_num % num_lines;\n    printf(\"\\nCalculated Cache Line = %d\\n\", cache_line);\n    if (status[cache_line] == 1 && cache[cache_line] == block_num) {\n        printf(\"Result: >>> CACHE HIT <<<\\n\");\n    } else {\n        printf(\"Result: >>> CACHE MISS <<<\\n\");\n        cache[cache_line] = block_num;\n        status[cache_line] = 1;\n        printf(\"Loaded Block %d into Cache Line %d.\\n\", block_num, cache_line);\n    }\n    printf(\"\\n--- CURRENT CACHE STATE ---\\n\");\n      printf(\"Line\\tStored Block\\tStatus\\n\");\n      for (i = 0; i < num_lines; i++) {\n          if (status[i] == 1) {\n              printf(\"%d\\tBlock %d\\t\\tOccupied\\n\", i, cache[i]);\n          } else {\n              printf(\"%d\\t---\\t\\tEmpty\\n\", i);\n          }\n      }\n      printf(\"---------------------------\\n\");\n      printf(\"\\nDo you want to access another block? (1 for Yes, 0 for No): \");\n      scanf(\"%d\", &choice);\n    } while (choice == 1);\n    return 0;\n}\n"}, {"id": "COA_08_8086_Bubble_Sort_asm", "rel_path": "COA/08_8086_Bubble_Sort.asm", "subject": "COA", "num": "Exp 08", "title": "8086 Bubble Sort in Assembly", "tags": ["8086 ASM", "Looping", "Pointer Comparison"], "desc": "Array sorting implemented directly in 8086 assembly instructions using register pairs and conditional jumps.", "icon": "\ud83e\udee7", "has_demo": false, "demo_url": "", "code": "DATA SEGMENT\n ARRAY DB 45H, 12H, 78H, 34H\n COUNT DW 04H\nDATA ENDS\nCODE SEGMENT\n ASSUME CS:CODE, DS:DATA\nSTART:\n MOV AX, DATA\n MOV DS, AX\n MOV CX, COUNT\n DEC CX\nOUTER_LOOP:\n MOV DX, CX\n MOV SI, OFFSET ARRAY\nINNER_LOOP:\n MOV AL, [SI]\n CMP AL, [SI+1]\n JC SKIP_SWAP\n XCHG AL, [SI+1]\n MOV [SI], AL\nSKIP_SWAP:\n INC SI\n DEC DX\n JNZ INNER_LOOP\n LOOP OUTER_LOOP\n MOV AH, 4CH\n INT 21H\nCODE ENDS\nEND START\n"}, {"id": "COA_09_8086_Block_Transfer_SI_DI_asm", "rel_path": "COA/09_8086_Block_Transfer_SI_DI.asm", "subject": "COA", "num": "Exp 09", "title": "8086 Block Transfer with SI/DI", "tags": ["8086 ASM", "String Instructions", "Memory Copy"], "desc": "High-efficiency block data transfer between memory locations using Source Index (SI) and Destination Index (DI).", "icon": "\ud83d\udce6", "has_demo": false, "demo_url": "", "code": ".MODEL SMALL\n.STACK 100H\n.DATA\nSRC_BLOCK DB 10H, 20H, 30H, 40H, 50H\nCOUNT EQU 5\nDEST_BLOCK DB 5 DUP(0)\n.CODE\nMAIN PROC\nMOV AX, @DATA\nMOV DS, AX\nMOV ES, AX\nLEA SI, SRC_BLOCK\nLEA DI, DEST_BLOCK\nMOV CX, COUNT\nCLD\nREP MOVSB\nMOV AH, 4CH\nINT 21H\nMAIN ENDP\nEND MAIN\n"}, {"id": "COA_10_File_Handling_in_C_c", "rel_path": "COA/10_File_Handling_in_C.c", "subject": "COA", "num": "Exp 10", "title": "Low-level File Handling in C", "tags": ["C", "File I/O", "Persistence"], "desc": "Comprehensive demonstration of file pointers, sequential read/write, record manipulation, and error checking.", "icon": "\ud83d\udcc1", "has_demo": false, "demo_url": "", "code": "#include <stdio.h>\n#include <stdlib.h>\nint main() {\n  FILE *fp;\n  char buffer[256];\n  // 1. Creating and writing data to a file (\"w\" mode)\nfp = fopen(\"sample.txt\", \"w\");\nif (fp == NULL) {\n    printf(\"Error: Unable to open file for writing.\\n\");\n    exit(1);\n}\nprintf(\"Writing initial data to sample.txt...\\n\");\nfprintf(fp, \"Course: Computer Organization and Architecture Lab\\n\");\nfprintf(fp, \"Experiment 10: Basic File Operations in C\\n\");\nfclose(fp);\nprintf(\"File created and initial data written successfully.\\n\\n\");\n// 2. Appending data to the file (\"a\" mode)\nfp = fopen(\"sample.txt\", \"a\");\nif (fp == NULL) {\n    printf(\"Error: Unable to open file for appending.\\n\");\n    exit(1);\n}\nprintf(\"Appending data to sample.txt...\\n\");\nfprintf(fp, \"Appended Line: Demonstrating append mode preserving existing data.\\n\");\nfclose(fp);\nprintf(\"Data appended successfully.\\n\\n\");\n    // 3. Reading and displaying file contents (\"r\" mode)\n    fp = fopen(\"sample.txt\", \"r\");\n    if (fp == NULL) {\n        printf(\"Error: Unable to open file for reading.\\n\");\n        exit(1);\n    }\n    printf(\"--- Reading contents of sample.txt ---\\n\");\n    while (fgets(buffer, sizeof(buffer), fp) != NULL) {\n        printf(\"%s\", buffer);\n    }\n    printf(\"--------------------------------------\\n\");\n    fclose(fp);\n    return 0;\n}\n"}, {"id": "FSJP_01_Classes_Objects_java", "rel_path": "FSJP/01_Classes_Objects.java", "subject": "FSJP", "num": "Exp 01", "title": "Classes & Objects", "tags": ["Java", "OOP", "Encapsulation"], "desc": "Fundamental Object-Oriented principles in Java featuring classes, instantiated objects, state, and behavior.", "icon": "\u2615", "has_demo": false, "demo_url": "", "code": "import java.util.Scanner;\nclass Student {\n  String name;\n  int rollNumber;\n  float marks;\n  public void inputDetails(Scanner scanner) {\n     System.out.print(\"Enter Name: \");\n     this.name = scanner.nextLine();\n     System.out.print(\"Enter Roll Number: \");\n     this.rollNumber = scanner.nextInt();\n        System.out.print(\"Enter Marks: \");\n        this.marks = scanner.nextFloat();\n        scanner.nextLine(); // Clears the buffer so the next string input works\n    }\n    public void displayDetails() {\n        System.out.println(\"Name: \" + this.name);\n        System.out.println(\"Roll Number: \" + this.rollNumber);\n        System.out.println(\"Marks: \" + this.marks);\n    }\n}\npublic class Exp1_43 {\n    public static void main(String[] args) {\n        Scanner scanner = new Scanner(System.in);\n        System.out.println(\"Enter Details for Student 1:\");\n        Student student1 = new Student();\n        student1.inputDetails(scanner);\n        System.out.println(\"Enter Details for Student 2:\");\n        Student student2 = new Student();\n        student2.inputDetails(scanner);\n        System.out.println(\"Student Information:\");\n        student1.displayDetails();\n        student2.displayDetails();\n         scanner.close();\n    }\n}\n"}, {"id": "FSJP_02_Method_Constructor_Overloading_java", "rel_path": "FSJP/02_Method_Constructor_Overloading.java", "subject": "FSJP", "num": "Exp 02", "title": "Method & Constructor Overloading", "tags": ["Java", "Polymorphism", "Compile-Time"], "desc": "Compile-time polymorphism implementing overloaded constructors and multiple method signatures.", "icon": "\ud83c\udfd7\ufe0f", "has_demo": false, "demo_url": "", "code": "class Calculator {\nCalculator() {\nSystem.out.println(\"Welcome to Calculator\");\n}\nCalculator(int a, int b) {\nSystem.out.println(\"Sum of \" + a + \" and \" + b + \" is: \" + (a + b));\n}\nvoid add() {\nSystem.out.println(\"Sum of default numbers 5 and 10 is: \" + (5 + 10));\n}\nvoid add(int a, int b) {\nSystem.out.println(\"Sum of \" + a + \" and \" + b + \" is: \" + (a + b));\n}\nvoid add(float a, float b, float c) {\nSystem.out.println(\"Sum of \" + a + \", \" + b + \" and \" + c + \" is: \" + (a + b + c));\n}\npublic static void main(String[] args) {\nCalculator c1 = new Calculator();\nCalculator c2 = new Calculator(15, 25);\nc1.add();\nc1.add(20, 30);\nc1.add(12.5f, 15.5f, 10.0f);\n}\n}\n"}, {"id": "FSJP_03_Inheritance_java", "rel_path": "FSJP/03_Inheritance.java", "subject": "FSJP", "num": "Exp 03", "title": "Inheritance Architecture", "tags": ["Java", "Inheritance", "Super Keyword"], "desc": "Single, multilevel, and hierarchical inheritance hierarchies in Java demonstrating code reuse and super constructor calls.", "icon": "\ud83e\uddec", "has_demo": false, "demo_url": "", "code": "import java.util.Scanner;\nclass person {\nString name;\nint age;\nperson() {}\nperson(String name, int age) {\nthis.name = name;\nthis.age = age;\n}\nvoid displayperson() {\nSystem.out.println(\"name=\" + name);\nSystem.out.println(\"age=\" + age);\n}\n}\nclass Student extends person {\nString course;\nint rollnumber;\nStudent() {}\nStudent(String name, int age, String course, int rollnumber) {\nsuper(name, age);\nthis.course = course;\nthis.rollnumber = rollnumber;\n}\nvoid displayStudent() {\ndisplayperson();\nSystem.out.println(\"course=\" + course);\nSystem.out.println(\"rollnumber=\" + rollnumber);\n}\n}\nclass graduatedstudent extends Student {\nint graduationyear;\ngraduatedstudent(int graduationyear, String name, int age, String course, int rollnumber) {\nsuper(name, age, course, rollnumber);\nthis.graduationyear = graduationyear;\n}\nvoid displaygraduatedstudent() {\ndisplayStudent();\nSystem.out.println(\"graduationyear=\" + graduationyear);\n}\n}\nclass Teacher extends person {\nString subject;\nTeacher(String name, int age, String subject) {\nsuper(name, age);\nthis.subject = subject;\n}\nvoid displayTeacher() {\ndisplayperson();\nSystem.out.println(\"Subject: \" + subject);\n}\n}\nclass Administrator extends person {\nString department;\nAdministrator(String name, int age, String department) {\nsuper(name, age);\nthis.department = department;\n}\nvoid displayAdministrator() {\ndisplayperson();\nSystem.out.println(\"Department: \" + department);\n}\n}\npublic class exp_3 {\npublic static void main(String[] args) {\ntry (Scanner sc = new Scanner(System.in)) {\nString name, course, subject, department;\nint age, rollnumber, graduationyear;\nSystem.out.println(\"--- Enter Student Details ---\");\nSystem.out.print(\"Enter Name: \");\nname = sc.next();\nSystem.out.print(\"Enter Age: \");\nage = sc.nextInt();\nSystem.out.print(\"Enter Course: \");\ncourse = sc.next();\nSystem.out.print(\"Enter Roll Number: \");\nrollnumber = sc.nextInt();\nStudent s = new Student(name, age, course, rollnumber);\nSystem.out.println(\"\\n--- Enter Graduate Student Details ---\");\nSystem.out.print(\"Enter Name: \");\nname = sc.next();\nSystem.out.print(\"Enter Age: \");\nage = sc.nextInt();\nSystem.out.print(\"Enter Course: \");\ncourse = sc.next();\nSystem.out.print(\"Enter Roll Number: \");\nrollnumber = sc.nextInt();\nSystem.out.print(\"Enter Graduation Year: \");\ngraduationyear = sc.nextInt();\ngraduatedstudent gs = new graduatedstudent(graduationyear, name, age, course, rollnumber);\nSystem.out.println(\"\\n--- Enter Teacher Details ---\");\nSystem.out.print(\"Enter Name: \");\nname = sc.next();\nSystem.out.print(\"Enter Age: \");\nage = sc.nextInt();\nSystem.out.print(\"Enter Subject: \");\nsubject = sc.next();\nTeacher t = new Teacher(name, age, subject);\nSystem.out.println(\"\\n--- Enter Administrator Details ---\");\nSystem.out.print(\"Enter Name: \");\nname = sc.next();\nSystem.out.print(\"Enter Age: \");\nage = sc.nextInt();\nSystem.out.print(\"Enter Department: \");\ndepartment = sc.next();\nAdministrator a = new Administrator(name, age, department);\nSystem.out.println(\"\\nStudent Details\");\ns.displayStudent();\nSystem.out.println(\"\\nGraduate Student Details\");\ngs.displaygraduatedstudent();\nSystem.out.println(\"\\nTeacher Details\");\nt.displayTeacher();\nSystem.out.println(\"\\nAdministrator Details\");\na.displayAdministrator();\n}\n}\n}\n"}, {"id": "FSJP_04_Generic_HTTP_Servlet_txt", "rel_path": "FSJP/04_Generic_HTTP_Servlet.txt", "subject": "FSJP", "num": "Exp 04", "title": "Generic & HTTP Servlets", "tags": ["Java", "Servlets", "Jakarta EE", "Web Container"], "desc": "Server-side request/response processing using GenericServlet and HttpServlet with web.xml deployment configuration.", "icon": "\ud83c\udf10", "has_demo": false, "demo_url": "", "code": "// Generic & HTTP Servlet\n// === GENERIC SERVLET ===\npackage servletapp;\nimport java.io.IOException;\nimport java.io.PrintWriter;\nimport javax.servlet.GenericServlet;\nimport javax.servlet.ServletException;\nimport javax.servlet.ServletRequest;\nimport javax.servlet.ServletResponse;\npublic class GenericServletDemo extends GenericServlet {\n    @Override\n    public void service(ServletRequest request, ServletResponse response)\n            throws ServletException, IOException {\n        response.setContentType(\"text/html\");\n        PrintWriter out = response.getWriter();\n        out.println(\"<!DOCTYPE html>\");\n        out.println(\"<html>\");\n        out.println(\"<head><title>Generic Servlet</title></head>\");\n        out.println(\"<body>\");\n        out.println(\"<h1>Welcome, Varun!</h1>\");\n        out.println(\"<p>You are using a Generic Servlet.</p>\");\n        out.println(\"<a href='index.html'>&larr; Back to Dashboard</a>\");\n        out.println(\"</body>\");\n        out.println(\"</html>\");\n        out.close();\n    }\n}\n// === HTTP SERVLET ===\npackage servletapp;\nimport java.io.IOException;\nimport java.io.PrintWriter;\nimport javax.servlet.ServletException;\nimport javax.servlet.http.HttpServlet;\nimport javax.servlet.http.HttpServletRequest;\nimport javax.servlet.http.HttpServletResponse;\npublic class HttpServletDemo extends HttpServlet {\n    @Override\n    protected void doGet(HttpServletRequest request, HttpServletResponse response)\n            throws ServletException, IOException {\n        response.setContentType(\"text/html\");\n        PrintWriter out = response.getWriter();\n        out.println(\"<!DOCTYPE html>\");\n        out.println(\"<html>\");\n        out.println(\"<head><title>HTTP Servlet</title></head>\");\n        out.println(\"<body>\");\n        out.println(\"<h1>Welcome, Varun!</h1>\");\n        out.println(\"<p>You are using an HTTP Servlet (doGet Method).</p>\");\n        out.println(\"<a href='index.html'>&larr; Back to Dashboard</a>\");\n        out.println(\"</body>\");\n        out.println(\"</html>\");\n        out.close();\n    }\n}\n// === HTML ===\n<!DOCTYPE html>\n<html>\n<head>\n    <title>Experiment 4 - Servlet Dashboard</title>\n    <style>\n        body { font-family: Arial, sans-serif; margin: 40px; line-height: 1.6; }\n        .card { border: 1px solid #ccc; padding: 20px; border-radius: 8px; margin-bottom: 20px; width: 400px; }\n        a { text-decoration: none; color: #0066cc; font-weight: bold; }\n        a:hover { text-decoration: underline; }\n    </style>\n</head>\n<body>\n    <h2>Experiment 4: Generic & HTTP Servlet Demonstration</h2>\n    <div class=\"card\">\n        <h3>1. Generic Servlet Output</h3>\n        <p>Demonstrates protocol-independent request processing via <code>service()</code>.</p>\n        <a href=\"welcome\" target=\"_blank\">Launch Generic Servlet &rarr;</a>\n    </div>\n    <div class=\"card\">\n        <h3>2. HTTP Servlet Output</h3>\n        <p>Demonstrates HTTP-specific request processing via <code>doGet()</code>.</p>\n        <a href=\"welcomeHttp\" target=\"_blank\">Launch HTTP Servlet &rarr;</a>\n    </div>\n</body>\n</html>\n// === XML ===\n<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<web-app xmlns=\"http://xmlns.jcp.org/xml/ns/javaee\"\n         xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\"\n         xsi:schemaLocation=\"http://xmlns.jcp.org/xml/ns/javaee\n         http://xmlns.jcp.org/xml/ns/javaee/web-app_4_0.xsd\"\n         version=\"4.0\">\n    <welcome-file-list>\n        <welcome-file>index.html</welcome-file>\n    </welcome-file-list>\n    <!-- Generic Servlet Configuration -->\n    <servlet>\n        <servlet-name>GenericServletDemo</servlet-name>\n        <servlet-class>servletapp.GenericServletDemo</servlet-class>\n    </servlet>\n    <servlet-mapping>\n        <servlet-name>GenericServletDemo</servlet-name>\n        <url-pattern>/welcome</url-pattern>\n    </servlet-mapping>\n    <!-- HTTP Servlet Configuration -->\n    <servlet>\n        <servlet-name>HttpServletDemo</servlet-name>\n        <servlet-class>servletapp.HttpServletDemo</servlet-class>\n    </servlet>\n    <servlet-mapping>\n        <servlet-name>HttpServletDemo</servlet-name>\n        <url-pattern>/welcomeHttp</url-pattern>\n    </servlet-mapping>\n</web-app>\n"}, {"id": "FSJP_05_JSP_Servlet_JDBC_Login_txt", "rel_path": "FSJP/05_JSP_Servlet_JDBC_Login.txt", "subject": "FSJP", "num": "Exp 05", "title": "JSP + Servlet + JDBC Login (Dark Layout)", "tags": ["Java", "JSP", "JDBC", "MySQL", "Authentication"], "desc": "Full-stack authentication system connecting JSP frontends to servlets with JDBC MySQL database validation.", "icon": "\ud83d\udd10", "has_demo": false, "demo_url": "", "code": "// JSP + Servlet + JDBC Login\n// === Database Creation ===\n CREATE DATABASE IF NOT EXISTS userdb;\nUSE userdb;\nCREATE TABLE IF NOT EXISTS users (\n    id INT AUTO_INCREMENT PRIMARY KEY,\n    username VARCHAR(50) NOT NULL UNIQUE,\n    password VARCHAR(100) NOT NULL,\n    full_name VARCHAR(100) NOT NULL\n);\nINSERT INTO users (username, password, full_name)\nVALUES ('varun', 'admin123', 'Varun Ganesh Poojary');\n// === Login Interface ===\n<%@ page language=\"java\" contentType=\"text/html; charset=UTF-8\" pageEncoding=\"UTF-8\"%>\n<!DOCTYPE html>\n<html>\n<head>\n    <meta charset=\"UTF-8\">\n    <title>Login - Full Stack Java</title>\n    <style>\n        body {\n            font-family: Arial, sans-serif;\n            display: flex;\n            justify-content: center;\n            align-items: center;\n            height: 90vh;\n            background-color: #0b0f19;\n            color: #e2e8f0;\n        }\n        .card {\n            background: #111827;\n            border: 1px solid #1f2937;\n            padding: 25px 35px;\n            border-radius: 12px;\n            box-shadow: 0 10px 30px rgba(0,0,0,0.6);\n            width: 320px;\n        }\n        .card h2 {\n            margin-bottom: 20px;\n            text-align: center;\n            color: #60a5fa;\n        }\n        .form-group {\n            margin-bottom: 15px;\n        }\n        .form-group label {\n            display: block;\n            margin-bottom: 5px;\n            font-weight: bold;\n            color: #cbd5e1;\n        }\n        .form-group input {\n            width: 100%;\n            padding: 10px;\n            box-sizing: border-box;\n            background: #0b0f19;\n            color: #f1f5f9;\n            border: 1px solid #374151;\n            border-radius: 6px;\n        }\n        .form-group input:focus {\n            outline: none;\n            border-color: #3b82f6;\n            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.25);\n        }\n        .btn {\n            width: 100%;\n            padding: 10px;\n            background-color: #2563eb;\n            border: none;\n            color: #ffffff;\n            font-weight: bold;\n            border-radius: 4px;\n            cursor: pointer;\n        }\n        .btn:hover {\n            background-color: #0056b3;\n        }\n    </style>\n</head>\n<body>\n    <div class=\"card\">\n        <h2>User Login</h2>\n        <form action=\"LoginServlet\" method=\"post\">\n            <div class=\"form-group\">\n                <label for=\"username\">Username:</label>\n                <input type=\"text\" id=\"username\" name=\"username\" required />\n            </div>\n            <div class=\"form-group\">\n                <label for=\"password\">Password:</label>\n                <input type=\"password\" id=\"password\" name=\"password\" required />\n            </div>\n            <button type=\"submit\" class=\"btn\">Sign In</button>\n        </form>\n    </div>\n</body>\n</html>\n// === Servlet ===\npackage com.example;\nimport java.io.IOException;\nimport java.sql.Connection;\nimport java.sql.DriverManager;\nimport java.sql.PreparedStatement;\nimport java.sql.ResultSet;\nimport java.sql.SQLException;\nimport javax.servlet.RequestDispatcher;\nimport javax.servlet.ServletException;\nimport javax.servlet.http.HttpServlet;\nimport javax.servlet.http.HttpServletRequest;\nimport javax.servlet.http.HttpServletResponse;\npublic class LoginServlet extends HttpServlet {\n    private static final long serialVersionUID = 1L;\n    private static final String DB_URL = \"jdbc:mysql://localhost:3306/userdb?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=UTC\";\n    private static final String DB_USER = \"root\";\n    private static final String DB_PASSWORD = \"Varun48#@\";\n    @Override\n    protected void doPost(HttpServletRequest request, HttpServletResponse response)\n            throws ServletException, IOException {\n        String uname = request.getParameter(\"username\");\n        String pass = request.getParameter(\"password\");\n        Connection conn = null;\n        PreparedStatement stmt = null;\n        ResultSet rs = null;\n        try {\n            Class.forName(\"com.mysql.cj.jdbc.Driver\");\n            conn = DriverManager.getConnection(DB_URL, DB_USER, DB_PASSWORD);\n            String sql = \"SELECT full_name FROM users WHERE username = ? AND password = ?\";\n            stmt = conn.prepareStatement(sql);\n            stmt.setString(1, uname);\n            stmt.setString(2, pass);\n            rs = stmt.executeQuery();\n            if (rs.next()) {\n                String fullName = rs.getString(\"full_name\");\n                request.setAttribute(\"displayName\", fullName);\n                RequestDispatcher dispatcher = request.getRequestDispatcher(\"welcome.jsp\");\n                dispatcher.forward(request, response);\n            } else {\n                request.setAttribute(\"errorMessage\", \"Invalid Username or Password.\");\n                RequestDispatcher dispatcher = request.getRequestDispatcher(\"error.jsp\");\n                dispatcher.forward(request, response);\n            }\n        } catch (ClassNotFoundException e) {\n            request.setAttribute(\"errorMessage\", \"Driver Error: \" + e.getMessage());\n            request.getRequestDispatcher(\"error.jsp\").forward(request, response);\n        } catch (SQLException e) {\n            request.setAttribute(\"errorMessage\", \"Database Error: \" + e.getMessage());\n            request.getRequestDispatcher(\"error.jsp\").forward(request, response);\n        } finally {\n            try { if (rs != null) rs.close(); } catch (SQLException ignored) {}\n            try { if (stmt != null) stmt.close(); } catch (SQLException ignored) {}\n            try { if (conn != null) conn.close(); } catch (SQLException ignored) {}\n        }\n    }\n    @Override\n    protected void doGet(HttpServletRequest request, HttpServletResponse response)\n            throws ServletException, IOException {\n        response.sendRedirect(\"login.jsp\");\n    }\n}\n// === Welcome window ===\n<%@ page language=\"java\" contentType=\"text/html; charset=UTF-8\" pageEncoding=\"UTF-8\"%>\n<!DOCTYPE html>\n<html>\n<head>\n    <meta charset=\"UTF-8\">\n    <title>Dashboard</title>\n    <style>\n        body {\n            font-family: Arial, sans-serif;\n            text-align: center;\n            margin-top: 100px;\n            background-color: #121212;\n            color: #ffffff;\n        }\n        .card {\n            display: inline-block;\n            padding: 30px 50px;\n            background: #1e1e1e;\n            border: 1px solid #333333;\n            border-radius: 8px;\n            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);\n        }\n        h1 {\n            color: #00e676;\n            margin-bottom: 15px;\n        }\n        p {\n            color: #cccccc;\n            font-size: 16px;\n        }\n        a {\n            display: inline-block;\n            margin-top: 20px;\n            color: #64b5f6;\n            text-decoration: none;\n            font-weight: bold;\n        }\n        a:hover {\n            text-decoration: underline;\n        }\n    </style>\n</head>\n<body>\n    <div class=\"card\">\n        <h1>Welcome, <%= request.getAttribute(\"displayName\") != null ? request.getAttribute(\"displayName\") : \"User\" %>!</h1>\n        <p>Login successfully verified through JDBC & Servlet.</p>\n        <a href=\"login.jsp\">Log Out</a>\n    </div>\n</body>\n</html>\n// === Error window ===\n<%@ page language=\"java\" contentType=\"text/html; charset=UTF-8\" pageEncoding=\"UTF-8\"%>\n<!DOCTYPE html>\n<html>\n<head>\n    <meta charset=\"UTF-8\">\n    <title>Authentication Error</title>\n    <style>\n        body { font-family: Arial, sans-serif; text-align: center; margin-top: 100px; background-color: #fff8f8; }\n        .card { display: inline-block; padding: 30px 45px; background: #ffffff; border: 1px solid #f5c6cb; border-radius: 8px; }\n        h2 { color: #721c24; }\n        p { color: #495057; }\n        a { color: #007bff; text-decoration: none; font-weight: bold; }\n    </style>\n</head>\n<body>\n    <div class=\"card\">\n        <h2>Authentication Failed</h2>\n        <p><%= request.getAttribute(\"errorMessage\") != null ? request.getAttribute(\"errorMessage\") : \"Invalid credentials provided.\" %></p>\n        <a href=\"login.jsp\">Back to Login</a>\n    </div>\n</body>\n</html>\n"}, {"id": "FSJP_06_Static_Website_HTML_CSS_JS_txt", "rel_path": "FSJP/06_Static_Website_HTML_CSS_JS.txt", "subject": "FSJP", "num": "Exp 06", "title": "CareLine Hospital HMS (Modern Dark Layout)", "tags": ["HTML5", "CSS3", "JavaScript", "Dark Layout", "Live Demo"], "desc": "Clinical Operations Dashboard, Patient Appointment Booking, and Staff Authentication with complete responsive dark theme.", "icon": "\ud83c\udfe5", "has_demo": true, "demo_url": "FSJP/06_Static_Website_HTML_CSS_JS/login.html", "code": "// Static Website (HTML/CSS/JS)\n// === Login.html ===\n<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n    <meta charset=\"UTF-8\">\n    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n    <title>Hospital Portal - Secure Login</title>\n    <link rel=\"stylesheet\" href=\"style.css\">\n</head>\n<body class=\"centered-layout\">\n    <div class=\"login-card\">\n        <header class=\"form-header\">\n            <h1>CareLine Hospital</h1>\n            <p>Authorized Medical Access Portal</p>\n        </header>\n        <main>\n            <form id=\"loginForm\" action=\"staff_dashboard.html\" method=\"GET\">\n                <div class=\"input-group\">\n                    <label for=\"email\">Staff Email Address</label>\n                    <input type=\"email\" id=\"email\" required>\n                </div>\n                <div class=\"input-group\">\n                    <label for=\"password\">Security Password</label>\n                    <input type=\"password\" id=\"password\" required>\n                </div>\n                <button type=\"submit\" class=\"btn-primary\">Authenticate Secure Sign In</button>\n            </form>\n            <div class=\"form-footer-links\">\n                <a href=\"book_appointment.html\">Patient Appointment Booking Portal \u2192</a>\n            </div>\n        </main>\n    </div>\n    <script src=\"script.js\"></script>\n</body>\n</html>\n// === Bookappointment.html ===\n<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n    <meta charset=\"UTF-8\">\n    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n    <title>Patient Registration - Book Appointment</title>\n    <link rel=\"stylesheet\" href=\"style.css\">\n</head>\n<body>\n    <header class=\"app-header\">\n        <h1>Patient Outpatient Registration</h1>\n        <nav>\n            <a href=\"login.html\" class=\"nav-link\">Staff Login</a>\n        </nav>\n    </header>\n    <main class=\"container\">\n        <section class=\"form-section\">\n            <h2>Book a Medical Appointment</h2>\n            <p class=\"form-subtitle\">Please fill out the form below to schedule a visit with our specialists.</p>\n            <form id=\"bookingForm\">\n                <div class=\"form-grid\">\n                    <div class=\"input-group\">\n                        <label for=\"firstName\">First Name</label>\n                        <input type=\"text\" id=\"firstName\">\n                    </div>\n                    <div class=\"input-group\">\n                        <label for=\"lastName\">Last Name</label>\n                        <input type=\"text\" id=\"lastName\">\n                    </div>\n                    <div class=\"input-group\">\n                        <label for=\"email\">Email Address</label>\n                        <input type=\"email\" id=\"email\">\n                    </div>\n                    <div class=\"input-group\">\n                        <label for=\"phone\">Phone Number</label>\n                        <input type=\"text\" id=\"phone\">\n                    </div>\n                    <div class=\"input-group\">\n                        <label for=\"specialty\">Medical Department</label>\n                        <select id=\"specialty\">\n                            <option value=\"General Medicine\">General Medicine</option>\n                            <option value=\"Cardiology\">Cardiology</option>\n                            <option value=\"Pediatrics\">Pediatrics</option>\n                            <option value=\"Orthopedics\">Orthopedics</option>\n                        </select>\n                    </div>\n                    <div class=\"input-group\">\n                        <label for=\"appointmentDate\">Preferred Date</label>\n                        <input type=\"date\" id=\"appointmentDate\">\n                    </div>\n                </div>\n                <div class=\"input-group full-width\">\n                    <label for=\"symptoms\">Reason for Visit / Symptoms</label>\n                    <textarea id=\"symptoms\" rows=\"4\"></textarea>\n                </div>\n                <button type=\"button\" onclick=\"executeStaticBooking()\" class=\"btn-success\">Request Appointment</button>\n            </form>\n            <div id=\"submissionMessage\" class=\"hidden-alert\"></div>\n        </section>\n    </main>\n    <script src=\"script.js\"></script>\n</body>\n</html>\n// === Staffdashboard.html ===\n<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n    <meta charset=\"UTF-8\">\n    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n    <title>CareLine Hospital - HMS Portal</title>\n    <link rel=\"stylesheet\" href=\"style.css\">\n</head>\n<body class=\"dashboard-layout\">\n    <aside class=\"sidebar\">\n        <div class=\"sidebar-brand\">CareLine HMS</div>\n        <div class=\"sidebar-badge\">Vasai-Virar Unit</div>\n        <nav class=\"sidebar-menu\">\n            <a href=\"#\" class=\"active\">Live OPD Queue</a>\n            <a href=\"book_appointment.html\">New Outpatient Form</a>\n            <a href=\"login.html\" class=\"logout\">Secure Logout</a>\n        </nav>\n    </aside>\n    <main class=\"dashboard-content\">\n        <header class=\"content-header\">\n            <div>\n                <h2>Clinical Operations Dashboard</h2>\n                <div id=\"liveClock\" class=\"live-clock-text\">Syncing Server Time...</div>\n            </div>\n            <div class=\"user-profile-badge\">\n                <span class=\"user-welcome\">Welcome, <strong>Dr. Ananya Iyer</strong></span>\n                <span class=\"staff-role\">Senior Consultant (Cardiology)</span>\n            </div>\n        </header>\n        <section class=\"metrics-row\">\n            <div class=\"card opd-card\">\n                <span class=\"metric-title\">TOTAL OPD REGISTRATIONS</span>\n                <h3 id=\"totalPatientsCount\">32</h3>\n                <span class=\"card-footer-sub\">Token Queue Active</span>\n            </div>\n            <div class=\"card warning-card\">\n                <span class=\"metric-title\">WAITING IN TRIAGE</span>\n                <h3 id=\"pendingCount\">8</h3>\n                <span class=\"card-footer-sub\">Immediate Attention Required</span>\n            </div>\n            <div class=\"card success-card\">\n                <span class=\"metric-title\">IPD GENERAL WARD VACANCY</span>\n                <h3>14 / 40</h3>\n                <span class=\"card-footer-sub\">Beds Available</span>\n            </div>\n        </section>\n        <section class=\"table-section\">\n            <div class=\"table-header-flex\">\n                <h3>Today's OPD Walk-in Schedule</h3>\n                <div class=\"triage-legend\">\n                    <span class=\"legend-dot critical\"></span> Critical\n                    <span class=\"legend-dot stable\"></span> Routine\n                </div>\n            </div>\n            <table class=\"data-table\">\n                <thead>\n                    <tr>\n                        <th>OPD Token</th>\n                        <th>Patient Identity Name</th>\n                        <th>Department Unit</th>\n                        <th>Attending Consultant</th>\n                        <th>Triage Priority Status</th>\n                    </tr>\n                </thead>\n                <tbody>\n                    <tr>\n                        <td><strong>OPD-014</strong></td>\n                        <td>Aarav Sharma</td>\n                        <td>Cardiology Unit</td>\n                        <td>Dr. Iyer</td>\n                        <td><span class=\"badge badge-confirmed\">Routine</span></td>\n                    </tr>\n                    <tr>\n                        <td><strong>OPD-015</strong></td>\n                        <td>Riya Patel</td>\n                        <td>Pediatrics Ward</td>\n                        <td>Dr. Joshi</td>\n                        <td><span class=\"badge badge-confirmed\">Routine</span></td>\n                    </tr>\n                    <tr>\n                        <td><strong>OPD-016</strong></td>\n                        <td>Devendra Kulkarni</td>\n                        <td>Orthopedics Clinic</td>\n                        <td>Dr. Deshmukh</td>\n                        <td><span class=\"badge badge-pending\">High Priority</span></td>\n                    </tr>\n                </tbody>\n            </table>\n        </section>\n    </main>\n    <script src=\"script.js\"></script>\n</body>\n</html>\n// === Style.css ===\n* { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, Roboto, sans-serif; }\nbody { background-color: #0b0f19; color: #e2e8f0; line-height: 1.6; }\n.centered-layout { display: flex; justify-content: center; align-items: center; min-height: 100vh; background: radial-gradient(circle at top, #1e293b 0%, #0b0f19 75%); }\n.login-card { background: #111827; border: 1px solid #1f2937; padding: 40px; border-radius: 12px; box-shadow: 0 10px 30px -10px rgba(0,0,0,0.7), 0 0 20px rgba(59,130,246,0.1); width: 100%; max-width: 420px; }\n.form-header { text-align: center; margin-bottom: 25px; }\n.form-header h1 { color: #60a5fa; font-size: 28px; font-weight: 700; letter-spacing: -0.5px; }\n.form-header p { color: #94a3b8; font-size: 14px; margin-top: 4px; }\n.app-header { background: #111827; border-bottom: 1px solid #1f2937; color: #f1f5f9; padding: 16px 32px; display: flex; justify-content: space-between; align-items: center; }\n.app-header h1 { font-size: 22px; font-weight: 600; color: #60a5fa; }\n.nav-link { color: #e2e8f0; text-decoration: none; font-weight: 600; border: 1px solid #374151; padding: 6px 16px; border-radius: 6px; background: #1f2937; transition: all 0.2s ease; }\n.nav-link:hover { background: #374151; border-color: #60a5fa; color: #60a5fa; }\n.container { max-width: 900px; margin: 40px auto; padding: 0 20px; }\n.form-section { background: #111827; border: 1px solid #1f2937; padding: 35px; border-radius: 12px; box-shadow: 0 10px 25px rgba(0,0,0,0.5); }\n.form-section h2 { color: #60a5fa; margin-bottom: 6px; font-size: 24px; }\n.form-subtitle { color: #94a3b8; margin-bottom: 28px; font-size: 14px; }\n.form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }\n.input-group { margin-bottom: 20px; display: flex; flex-direction: column; }\n.input-group.full-width { grid-column: span 2; }\n.input-group label { font-weight: 600; margin-bottom: 8px; font-size: 13px; color: #cbd5e1; text-transform: uppercase; letter-spacing: 0.5px; }\n.input-group input, .input-group select, .input-group textarea { padding: 12px 14px; background: #0b0f19; border: 1px solid #374151; border-radius: 6px; font-size: 15px; color: #f1f5f9; width: 100%; transition: all 0.2s ease; }\n.input-group input:focus, .input-group select:focus, .input-group textarea:focus { outline: none; border-color: #3b82f6; box-shadow: 0 0 0 3px rgba(59,130,246,0.25); }\n.input-group input[type=\"date\"]::-webkit-calendar-picker-indicator { filter: invert(1); cursor: pointer; }\n.btn-primary { background: linear-gradient(135deg, #2563eb, #1d4ed8); padding: 13px; border: none; border-radius: 6px; color: white; font-weight: 600; cursor: pointer; width: 100%; font-size: 16px; box-shadow: 0 4px 12px rgba(37,99,235,0.35); transition: all 0.2s ease; }\n.btn-primary:hover { background: linear-gradient(135deg, #3b82f6, #2563eb); transform: translateY(-1px); box-shadow: 0 6px 18px rgba(37,99,235,0.5); }\n.btn-success { background: linear-gradient(135deg, #10b981, #059669); padding: 14px; border: none; border-radius: 6px; color: white; font-weight: 600; cursor: pointer; width: 100%; font-size: 16px; margin-top: 10px; border-bottom: 3px solid #047857; box-shadow: 0 4px 12px rgba(16,185,129,0.3); transition: all 0.2s ease; }\n.btn-success:hover { background: linear-gradient(135deg, #34d399, #10b981); transform: translateY(-1px); box-shadow: 0 6px 18px rgba(16,185,129,0.45); }\n.form-footer-links { margin-top: 20px; text-align: center; }\n.form-footer-links a { color: #60a5fa; text-decoration: none; font-size: 14px; transition: color 0.2s ease; }\n.form-footer-links a:hover { color: #93c5fd; text-decoration: underline; }\n.dashboard-layout { display: flex; min-height: 100vh; background-color: #0b0f19; }\n.sidebar { width: 270px; background: #090d16; border-right: 1px solid #1f2937; color: #f1f5f9; padding: 24px 18px; display: flex; flex-direction: column; }\n.sidebar-brand { font-size: 22px; font-weight: 700; margin-bottom: 35px; color: #60a5fa; padding-left: 10px; letter-spacing: -0.5px; }\n.sidebar-badge { font-size: 11px; background: rgba(96,165,250,0.12); color: #60a5fa; border: 1px solid rgba(96,165,250,0.3); width: fit-content; padding: 3px 10px; border-radius: 12px; margin: -25px auto 30px 10px; font-weight: 600; text-transform: uppercase; letter-spacing: 1px; }\n.sidebar-menu a { color: #94a3b8; text-decoration: none; padding: 12px 14px; margin-bottom: 8px; border-radius: 6px; display: block; font-weight: 500; transition: all 0.2s ease; }\n.sidebar-menu a.active, .sidebar-menu a:hover { background: #1e293b; color: #38bdf8; border-left: 3px solid #38bdf8; }\n.sidebar-menu a.logout { margin-top: auto; color: #f87171; border-left: none; }\n.sidebar-menu a.logout:hover { background: rgba(239,68,68,0.1); color: #ef4444; }\n.dashboard-content { flex: 1; padding: 40px; background: #0b0f19; overflow-y: auto; }\n.content-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px; border-bottom: 1px solid #1f2937; padding-bottom: 18px; }\n.content-header h2 { color: #f1f5f9; font-size: 28px; font-weight: 700; }\n.live-clock-text { font-size: 13px; color: #94a3b8; font-weight: 500; margin-top: 5px; }\n.user-profile-badge { text-align: right; display: flex; flex-direction: column; }\n.user-welcome { color: #e2e8f0; font-size: 14px; }\n.user-welcome strong { color: #60a5fa; }\n.staff-role { font-size: 12px; color: #93c5fd; background: #1e293b; border: 1px solid #3b82f6; padding: 3px 10px; border-radius: 4px; margin-top: 4px; width: fit-content; align-self: flex-end; }\n.metrics-row { display: flex; gap: 20px; margin-bottom: 35px; }\n.card { background: #111827; border: 1px solid #1f2937; padding: 22px; border-radius: 10px; flex: 1; box-shadow: 0 4px 15px rgba(0,0,0,0.4); transition: transform 0.2s ease, box-shadow 0.2s ease; }\n.card:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(0,0,0,0.6); }\n.metric-title { font-size: 11px; font-weight: 700; color: #94a3b8; display: block; margin-bottom: 10px; letter-spacing: 0.5px; }\n.card h3 { font-size: 32px; color: #f8fafc; font-weight: 700; }\n.card-footer-sub { font-size: 11px; color: #64748b; display: block; margin-top: 10px; text-transform: uppercase; letter-spacing: 0.5px; }\n.opd-card { border-top: 4px solid #38bdf8; }\n.warning-card { border-top: 4px solid #f59e0b; }\n.success-card { border-top: 4px solid #10b981; }\n.table-section { background: #111827; border: 1px solid #1f2937; padding: 24px; border-radius: 10px; box-shadow: 0 4px 15px rgba(0,0,0,0.4); }\n.table-section h3 { color: #f1f5f9; font-size: 18px; font-weight: 600; }\n.table-header-flex { display: flex; justify-content: space-between; align-items: center; margin-bottom: 18px; }\n.triage-legend { font-size: 12px; font-weight: 600; color: #94a3b8; }\n.legend-dot { display: inline-block; width: 8px; height: 8px; border-radius: 50%; margin-left: 10px; }\n.legend-dot.critical { background: #f59e0b; box-shadow: 0 0 8px #f59e0b; }\n.legend-dot.stable { background: #10b981; box-shadow: 0 0 8px #10b981; }\n.data-table { width: 100%; border-collapse: collapse; background: transparent; border-radius: 8px; overflow: hidden; }\n.data-table th, .data-table td { padding: 14px 18px; text-align: left; border-bottom: 1px solid #1f2937; font-size: 14px; }\n.data-table th { background: #162032; font-weight: 600; color: #94a3b8; text-transform: uppercase; font-size: 12px; letter-spacing: 0.5px; border-bottom: 2px solid #2d3748; }\n.data-table tbody tr { transition: background 0.15s ease; }\n.data-table tbody tr:hover { background: rgba(255,255,255,0.03); }\n.badge { padding: 4px 12px; border-radius: 12px; font-size: 12px; font-weight: 600; }\n.badge-confirmed { background: rgba(16,185,129,0.15); color: #34d399; border: 1px solid rgba(16,185,129,0.4); }\n.badge-pending { background: rgba(245,158,11,0.15); color: #fbbf24; border: 1px solid rgba(245,158,11,0.4); animation: pulseGlow 2s infinite ease-in-out; }\n.hidden-alert { display: none; margin-top: 20px; padding: 14px; border-radius: 6px; text-align: center; font-weight: 600; }\n.success-alert { display: block; background: rgba(16,185,129,0.15); color: #34d399; border: 1px solid rgba(16,185,129,0.4); }\n@keyframes pulseGlow {\n    0% { opacity: 0.8; }\n    50% { opacity: 1; }\n    100% { opacity: 0.8; }\n}\n@media (max-width: 768px) {\n    .form-grid { grid-template-columns: 1fr; }\n    .input-group.full-width { grid-column: span 1; }\n    .dashboard-layout { flex-direction: column; }\n    .sidebar { width: 100%; min-height: auto; }\n    .metrics-row { flex-direction: column; }\n}\n// === script.js ===\nfunction executeStaticBooking() {\n    const firstName = document.getElementById(\"firstName\").value.trim();\n    const lastName = document.getElementById(\"lastName\").value.trim();\n    const targetDate = document.getElementById(\"appointmentDate\").value;\n    const department = document.getElementById(\"specialty\").value;\n    const alertBox = document.getElementById(\"submissionMessage\");\n    if (!firstName || !lastName || !targetDate) {\n        alert(\"Validation Error: Please fill out the required First Name, Last Name, and Preferred Date fields.\");\n        return;\n    }\n    localStorage.setItem(\"newPatientName\", `${firstName} ${lastName}`);\n    localStorage.setItem(\"newPatientDept\", department);\n    alertBox.className = \"hidden-alert success-alert\";\n    alertBox.textContent = `Token Registered Successfully for ${firstName} ${lastName}. Sending to Live Queue...`;\n    setTimeout(function() {\n        window.location.href = \"staff_dashboard.html\";\n    }, 1800);\n}\ndocument.addEventListener(\"DOMContentLoaded\", function () {\n    const clockElement = document.getElementById(\"liveClock\");\n    if (clockElement) {\n        setInterval(function() {\n            const now = new Date();\n            clockElement.textContent = `Live System Time: ${now.toLocaleDateString('en-IN')} | ${now.toLocaleTimeString('en-IN')}`;\n        }, 1000);\n    }\n    const loginForm = document.getElementById(\"loginForm\");\n    if (loginForm) {\n        loginForm.addEventListener(\"submit\", function (event) {\n            const email = document.getElementById(\"email\").value.trim();\n            const password = document.getElementById(\"password\").value.trim();\n            if (email === \"\" || password === \"\") {\n                event.preventDefault();\n                alert(\"Security Error: Please provide structural inputs for all credentials fields.\");\n            }\n        });\n    }\n    const tableBody = document.querySelector(\".data-table tbody\");\n    const storedName = localStorage.getItem(\"newPatientName\");\n    if (tableBody && storedName) {\n        const storedDept = localStorage.getItem(\"newPatientDept\");\n        const nextTokenIndex = tableBody.querySelectorAll(\"tr\").length + 14;\n        const newRow = document.createElement(\"tr\");\n        newRow.innerHTML = `\n            <td><strong>OPD-0${nextTokenIndex}</strong></td>\n            <td><strong>${storedName}</strong></td>\n            <td>${storedDept} Unit</td>\n            <td>Dr. Iyer</td>\n            <td><span class=\"badge badge-pending\">High Priority</span></td>\n        `;\n        tableBody.appendChild(newRow);\n        const totalPatientsNode = document.getElementById(\"totalPatientsCount\");\n        const pendingNode = document.getElementById(\"pendingCount\");\n        if (totalPatientsNode) {\n            totalPatientsNode.textContent = parseInt(totalPatientsNode.textContent, 10) + 1;\n        }\n        if (pendingNode) {\n            pendingNode.textContent = parseInt(pendingNode.textContent, 10) + 1;\n        }\n        localStorage.removeItem(\"newPatientName\");\n        localStorage.removeItem(\"newPatientDept\");\n    }\n});\n"}, {"id": "FSJP_07_JavaScript_Email_Validation_txt", "rel_path": "FSJP/07_JavaScript_Email_Validation.txt", "subject": "FSJP", "num": "Exp 07", "title": "Client-Side Email Validation (Dark Layout)", "tags": ["JavaScript", "Regex", "DOM Validation"], "desc": "Client-side email pattern matching and error handling formatted in a dark glassmorphism card layout.", "icon": "\u2709\ufe0f", "has_demo": false, "demo_url": "", "code": "// JavaScript Email Validation\n// === Index.html ===\n    <!DOCTYPE html>\n    <html lang=\"en\">\n    <head>\n      <meta charset=\"UTF-8\">\n      <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n      <title>Email Validation - Exp 7</title>\n      <style>\n        * {\n          box-sizing: border-box;\n          margin: 0;\n          padding: 0;\n          font-family: Arial, sans-serif;\n        }\n        body {\n          background-color: #0b0f19;\n          color: #e2e8f0;\n          display: flex;\n          justify-content: center;\n          align-items: center;\n          height: 100vh;\n        }\n        .form-container {\n          background: #111827;\n          border: 1px solid #1f2937;\n          padding: 30px;\n          border-radius: 12px;\n          box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6);\n          width: 360px;\n        }\n        h2 {\n          margin-bottom: 20px;\n          color: #60a5fa;\n          text-align: center;\n        }\n        .form-group {\n          margin-bottom: 16px;\n        }\n        label {\n          display: block;\n          margin-bottom: 6px;\n          font-weight: bold;\n          color: #cbd5e1;\n        }\n        input[type=\"text\"] {\n          width: 100%;\n          padding: 10px;\n          background: #0b0f19;\n          color: #f1f5f9;\n          border: 1px solid #374151;\n          border-radius: 6px;\n          font-size: 14px;\n          outline: none;\n        }\n        input[type=\"text\"]:focus {\n          border-color: #3b82f6;\n          box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.25);\n        }\n        button {\n          width: 100%;\n          padding: 10px;\n          background-color: #2563eb;\n          color: #fff;\n          font-size: 16px;\n          border: none;\n          border-radius: 4px;\n          cursor: pointer;\n          font-weight: bold;\n          transition: background 0.3s;\n        }\n        button:hover {\n          background-color: #005f9e;\n        }\n        #statusMsg {\n          margin-top: 15px;\n          text-align: center;\n          font-weight: bold;\n          font-size: 14px;\n        }\n      </style>\n    </head>\n    <body>\n      <div class=\"form-container\">\n        <h2>Email Validation</h2>\n        <form id=\"emailForm\" onsubmit=\"return validateEmail()\">\n          <div class=\"form-group\">\n            <label for=\"userEmail\">Enter Email Address:</label>\n            <input type=\"text\" id=\"userEmail\" name=\"userEmail\" placeholder=\"e.g. varun@example.com\" />\n          </div>\n          <button type=\"submit\">Submit</button>\n          <p id=\"statusMsg\"></p>\n        </form>\n      </div>\n      <script src=\"script.js\"></script>\n    </body>\n    </html>\n// === Script.js ===\n    function validateEmail() {\n      const emailInput = document.getElementById(\"userEmail\");\n      const statusMsg = document.getElementById(\"statusMsg\");\n      const emailValue = emailInput.value.trim();\n        statusMsg.textContent = \"\";\n      if (emailValue === \"\") {\n        alert(\"Email field cannot be empty. Please enter an email address.\");\n        emailInput.focus();\n        return false;\n      }\n      const atIndex = emailValue.indexOf(\"@\");\n      const dotIndex = emailValue.lastIndexOf(\".\");\n      if (atIndex === -1 || dotIndex === -1) {\n        alert(\"Error: Email address must contain both '@' and '.' characters. Please re-enter.\");\n        emailInput.focus();\n        return false;\n      }\n      if (atIndex < 1 || dotIndex <= atIndex + 1 || dotIndex + 1 >= emailValue.length) {\n        alert(\"Error: Invalid positioning of '@' or '.' in email address. Please re-enter.\");\n        emailInput.focus();\n        return false;\n      }\n      const emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+.[a-zA-Z]{2,}$/;\n      if (!emailPattern.test(emailValue)) {\n        alert(\"Invalid Email Address format. Please re-enter a valid email.\");\n        emailInput.focus();\n        return false;\n      }\n      statusMsg.style.color = \"green\";\n      statusMsg.textContent = \"Valid Email Address!\";\n      alert(\"Validation Successful: \" + emailValue);\n      return true;\n    }\n"}, {"id": "FSJP_08_DOM_Auto_Background_Colour_html", "rel_path": "FSJP/08_DOM_Auto_Background_Colour.html", "subject": "FSJP", "num": "Exp 08", "title": "DOM Dynamic Background Colour", "tags": ["HTML5", "JavaScript", "DOM Manipulation", "Timers"], "desc": "Automated DOM color cycling utilizing JavaScript setInterval and dynamic CSS background color transitions.", "icon": "\ud83c\udfa8", "has_demo": false, "demo_url": "", "code": "<!DOCTYPE html>\n <html lang=\"en\">\n <head>\n <meta charset=\"UTF-8\">\n <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n <title>Background Color Changer</title>\n<style>\n body {\n font-family: Helvetica, sans-serif;\n text-align: center;\n padding-top: 150px;\n transition: background-color 1s;\n }\nh1 {\n color: white;\n }\np {\n color: white;\n font-size: 18px;\n }\n </style>\n </head>\n<body>\n<h1>Document Object Model (DOM)</h1>\n <p>Background color changes automatically every 5 seconds.</p>\n<script>\nlet colors = [\n \"red\",\n \"blue\",\n \"green\",\n \"orange\",\n \"purple\",\n \"teal\",\n \"brown\"\n ];\nlet index = 0;\nfunction changeBackgroundColor() {\n document.body.style.backgroundColor = colors[index];\nindex++;\nif (index >= colors.length) {\n index = 0;\n }\n }\nsetInterval(changeBackgroundColor, 5000);\nchangeBackgroundColor();\n </script>\n</body>\n </html>\n"}, {"id": "FSJP_09_React_Single_Page_App_txt", "rel_path": "FSJP/09_React_Single_Page_App.txt", "subject": "FSJP", "num": "Exp 09", "title": "React Single-Page Application (SPA)", "tags": ["React", "React Router", "Vite", "SPA"], "desc": "Multi-view single page application with client-side routing, state hooks, and component lifecycle.", "icon": "\u269b\ufe0f", "has_demo": false, "demo_url": "", "code": "// React Single-Page App\n// === APP.jsx ===\nimport { useState } from \"react\";\n import {\n BrowserRouter,\n Routes,\n Route,\n Link\n } from \"react-router-dom\";\n function Home() {\n const [count, setCount] = useState(0);\n return (\n <div>\n <h2>Home Page</h2>\n <p>React Single Page Website.</p>\n <p>Count: {count}</p>\n <button onClick={() => setCount(count + 1)}>\n Increase\n </button>\n </div>\n );\n }\n function About({ name }) {\n return (\n <div>\n <h2>About Page</h2>\n <p>This website is created using React.</p>\n <p>Student Name: {name}</p>\n </div>\n );\n }\n function Contact() {\n return (\n <div>\n <h2>Contact Page</h2>\n <p>Email: student@example.com</p>\n </div>\n );\n }\n function App() {\n return (\n <BrowserRouter>\n <h1>React Single Page Website</h1>\n <nav>\n <Link to=\"/\">Home</Link>{\" | \"}\n <Link to=\"/about\">About</Link>{\" | \"}\n <Link to=\"/contact\">Contact</Link>\n </nav>\n <Routes>\n <Route path=\"/\" element={<Home />} />\n <Route\n path=\"/about\"\n element={<About name=\"Varun Poojary\" />}\n />\n <Route path=\"/contact\" element={<Contact />} />\n </Routes>\n </BrowserRouter>\n );\n }\n export default App;\n// === MAIN.jsx ===\nimport { StrictMode } from 'react'\n import { createRoot } from 'react-dom/client'\n import './index.css'\n import App from './App.jsx'\n createRoot(document.getElementById('root')).render(\n <StrictMode>\n <App />\n </StrictMode>,\n )\n// === Index.html ===\n<!doctype html>\n <html lang=\"en\">\n <head>\n <meta charset=\"UTF-8\" />\n <link rel=\"icon\" type=\"image/svg+xml\" href=\"/favicon.svg\" />\n <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\" />\n <title>react-website</title>\n </head>\n <body>\n <div id=\"root\"></div>\n <script type=\"module\" src=\"/src/main.jsx\"></script>\n </body>\n </html>\n"}, {"id": "FSJP_10_Spring_Boot_Monolithic_App_txt", "rel_path": "FSJP/10_Spring_Boot_Monolithic_App.txt", "subject": "FSJP", "num": "Exp 10", "title": "Spring Boot Monolithic Web Application", "tags": ["Java", "Spring Boot", "REST API", "Maven"], "desc": "Enterprise Spring Boot RESTful backend with controller routing, dependency injection, and application properties.", "icon": "\ud83c\udf43", "has_demo": false, "demo_url": "", "code": "// Spring Boot Monolithic App\n// === Demoaplication.java ===\npackage com.example.demo;\nimport com.example.demo.model.Employee;\nimport com.example.demo.repository.EmployeeRepository;\nimport org.springframework.boot.CommandLineRunner;\nimport org.springframework.boot.SpringApplication;\nimport org.springframework.boot.autoconfigure.SpringBootApplication;\nimport org.springframework.context.annotation.Bean;\n@SpringBootApplication\npublic class DemoApplication {\n    public static void main(String[] args) {\n        SpringApplication.run(DemoApplication.class, args);\n    }\n    @Bean\n    CommandLineRunner initDatabase(EmployeeRepository repository) {\n        return args -> {\n            repository.save(new Employee(\"Varun Poojary\", \"AI&DS\", 75000));\n            repository.save(new Employee(\"John Doe\", \"CS\", 65000));\n        };\n    }\n}\n**Employeecontroller**\npackage com.example.demo.controller;\nimport com.example.demo.model.Employee;\nimport com.example.demo.service.EmployeeService;\nimport org.springframework.web.bind.annotation.*;\nimport java.util.List;\n@RestController\n@RequestMapping(\"/employees\")\npublic class EmployeeController {\n    private final EmployeeService service;\n    public EmployeeController(EmployeeService service) {\n        this.service = service;\n    }\n    @GetMapping\n    public List<Employee> getEmployees() {\n        return service.getAllEmployees();\n    }\n    @PostMapping\n    public Employee addEmployee(@RequestBody Employee employee) {\n        return service.addEmployee(employee);\n    }\n}\n// === Employeerepository ===\npackage com.example.demo.repository;\nimport com.example.demo.model.Employee;\nimport org.springframework.data.jpa.repository.JpaRepository;\npublic interface EmployeeRepository extends JpaRepository<Employee, Long> {\n}\n// === Employeeservice ===\npackage com.example.demo.service;\nimport com.example.demo.model.Employee;\nimport com.example.demo.repository.EmployeeRepository;\nimport org.springframework.stereotype.Service;\nimport java.util.List;\n@Service\npublic class EmployeeService {\n    private final EmployeeRepository repository;\n    public EmployeeService(EmployeeRepository repository) {\n        this.repository = repository;\n    }\n    public List<Employee> getAllEmployees() {\n        return repository.findAll();\n    }\n    public Employee addEmployee(Employee employee) {\n        return repository.save(employee);\n    }\n}\n// === Database ===\npackage com.example.demo;\nimport com.example.demo.model.Employee;\nimport com.example.demo.repository.EmployeeRepository;\nimport org.springframework.boot.CommandLineRunner;\nimport org.springframework.boot.SpringApplication;\nimport org.springframework.boot.autoconfigure.SpringBootApplication;\nimport org.springframework.context.annotation.Bean;\n@SpringBootApplication\npublic class DemoApplication {\n    public static void main(String[] args) {\n        SpringApplication.run(DemoApplication.class, args);\n    }\n    @Bean\n    CommandLineRunner initDatabase(EmployeeRepository repository) {\n        return args -> {\n            repository.save(new Employee(\"Varun Poojary\", \"AI&DS\", 75000));\n            repository.save(new Employee(\"Vihar\", \"CS\", 65000));\n        };\n    }\n}\n**Employee.java**\npackage com.example.demo.model;\nimport jakarta.persistence.Entity;\nimport jakarta.persistence.GeneratedValue;\nimport jakarta.persistence.GenerationType;\nimport jakarta.persistence.Id;\n@Entity\npublic class Employee {\n    @Id\n    @GeneratedValue(strategy = GenerationType.IDENTITY)\n    private Long id;\n    private String name;\n    private String department;\n    private double salary;\n    public Employee() {\n    }\n    public Employee(String name, String department, double salary) {\n        this.name = name;\n        this.department = department;\n        this.salary = salary;\n    }\n    public Long getId() {\n        return id;\n    }\n    public String getName() {\n        return name;\n    }\n    public void setName(String name) {\n        this.name = name;\n    }\n    public String getDepartment() {\n        return department;\n    }\n    public void setDepartment(String department) {\n        this.department = department;\n    }\n    public double getSalary() {\n        return salary;\n    }\n    public void setSalary(double salary) {\n        this.salary = salary;\n    }\n}\n"}];
+
+        let currentFilter = 'all';
+        let searchQuery = '';
+
+        const cardsGrid = document.getElementById('cardsGrid');
+        const searchInput = document.getElementById('searchInput');
+        const resultsCount = document.getElementById('resultsCount');
+        const filterButtons = document.querySelectorAll('.tab-btn');
+
+        const codeModal = document.getElementById('codeModal');
+        const closeModalBtn = document.getElementById('closeModalBtn');
+        const copyCodeBtn = document.getElementById('copyCodeBtn');
+        const modalTitle = document.getElementById('modalTitle');
+        const modalFilename = document.getElementById('modalFilename');
+        const modalIcon = document.getElementById('modalIcon');
+        const modalCode = document.getElementById('modalCode');
+        const toast = document.getElementById('toast');
+
+        let currentActiveCode = '';
+
+        function renderCards() {
+            const filtered = experiments.filter(exp => {
+                const matchesSubject = currentFilter === 'all' || exp.subject === currentFilter;
+                const query = searchQuery.toLowerCase().trim();
+                if (!query) return matchesSubject;
+
+                const inTitle = exp.title.toLowerCase().includes(query);
+                const inNum = exp.num.toLowerCase().includes(query);
+                const inDesc = exp.desc.toLowerCase().includes(query);
+                const inSubject = exp.subject.toLowerCase().includes(query);
+                const inTags = exp.tags.some(t => t.toLowerCase().includes(query));
+                const inFilename = exp.rel_path.toLowerCase().includes(query);
+
+                return matchesSubject && (inTitle || inNum || inDesc || inSubject || inTags || inFilename);
+            });
+
+            resultsCount.textContent = `Showing ${filtered.length} of ${experiments.length} experiments`;
+
+            if (filtered.length === 0) {
+                cardsGrid.innerHTML = `
+                    <div class="empty-state">
+                        <h3>No experiments found</h3>
+                        <p>No practicals matched your search query "${searchQuery}". Try clearing the filter.</p>
+                    </div>
+                `;
+                return;
+            }
+
+            cardsGrid.innerHTML = filtered.map(exp => {
+                const subjectClass = exp.subject.toLowerCase();
+                const demoButton = exp.has_demo 
+                    ? `<a href="${exp.demo_url}" target="_blank" class="card-btn btn-demo">🚀 Open HMS</a>` 
+                    : '';
+
+                return `
+                    <div class="experiment-card card-${subjectClass}">
+                        <div class="card-top">
+                            <span class="subject-badge badge-${subjectClass}">${exp.subject}</span>
+                            <span class="card-num">${exp.num}</span>
+                        </div>
+                        <h3 class="card-title">${exp.icon} ${exp.title}</h3>
+                        <p class="card-desc">${exp.desc}</p>
+                        <div class="tags-list">
+                            ${exp.tags.map(t => `<span class="tech-tag">${t}</span>`).join('')}
+                        </div>
+                        <div class="card-actions">
+                            <button class="card-btn btn-view-code" onclick="openCodeModal('${exp.id}')">
+                                <span>📄</span> View Source
+                            </button>
+                            ${demoButton}
+                        </div>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        function openCodeModal(expId) {
+            const exp = experiments.find(e => e.id === expId);
+            if (!exp) return;
+
+            modalTitle.textContent = `${exp.num}: ${exp.title}`;
+            modalFilename.textContent = exp.rel_path;
+            modalIcon.textContent = exp.icon;
+            modalCode.textContent = exp.code;
+            currentActiveCode = exp.code;
+
+            codeModal.classList.add('open');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeModal() {
+            codeModal.classList.remove('open');
+            document.body.style.overflow = 'auto';
+        }
+
+        closeModalBtn.addEventListener('click', closeModal);
+
+        codeModal.addEventListener('click', (e) => {
+            if (e.target === codeModal) closeModal();
+        });
+
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && codeModal.classList.contains('open')) {
+                closeModal();
+            }
+        });
+
+        copyCodeBtn.addEventListener('click', () => {
+            if (!currentActiveCode) return;
+            navigator.clipboard.writeText(currentActiveCode).then(() => {
+                toast.classList.add('show');
+                setTimeout(() => {
+                    toast.classList.remove('show');
+                }, 2500);
+            });
+        });
+
+        filterButtons.forEach(btn => {
+            btn.addEventListener('click', () => {
+                filterButtons.forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                currentFilter = btn.getAttribute('data-filter');
+                renderCards();
+            });
+        });
+
+        searchInput.addEventListener('input', (e) => {
+            searchQuery = e.target.value;
+            renderCards();
+        });
+
+        // Initial render
+        renderCards();
+    </script>
+</body>
+</html>

@@ -1,0 +1,233 @@
+// JSP + Servlet + JDBC Login
+// === Database Creation ===
+ CREATE DATABASE IF NOT EXISTS userdb;
+USE userdb;
+CREATE TABLE IF NOT EXISTS users (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    username VARCHAR(50) NOT NULL UNIQUE,
+    password VARCHAR(100) NOT NULL,
+    full_name VARCHAR(100) NOT NULL
+);
+INSERT INTO users (username, password, full_name)
+VALUES ('varun', 'admin123', 'Varun Ganesh Poojary');
+// === Login Interface ===
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Login - Full Stack Java</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 90vh;
+            background-color: #0b0f19;
+            color: #e2e8f0;
+        }
+        .card {
+            background: #111827;
+            border: 1px solid #1f2937;
+            padding: 25px 35px;
+            border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.6);
+            width: 320px;
+        }
+        .card h2 {
+            margin-bottom: 20px;
+            text-align: center;
+            color: #60a5fa;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+            color: #cbd5e1;
+        }
+        .form-group input {
+            width: 100%;
+            padding: 10px;
+            box-sizing: border-box;
+            background: #0b0f19;
+            color: #f1f5f9;
+            border: 1px solid #374151;
+            border-radius: 6px;
+        }
+        .form-group input:focus {
+            outline: none;
+            border-color: #3b82f6;
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.25);
+        }
+        .btn {
+            width: 100%;
+            padding: 10px;
+            background-color: #2563eb;
+            border: none;
+            color: #ffffff;
+            font-weight: bold;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        .btn:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <div class="card">
+        <h2>User Login</h2>
+        <form action="LoginServlet" method="post">
+            <div class="form-group">
+                <label for="username">Username:</label>
+                <input type="text" id="username" name="username" required />
+            </div>
+            <div class="form-group">
+                <label for="password">Password:</label>
+                <input type="password" id="password" name="password" required />
+            </div>
+            <button type="submit" class="btn">Sign In</button>
+        </form>
+    </div>
+</body>
+</html>
+// === Servlet ===
+package com.example;
+import java.io.IOException;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import javax.servlet.RequestDispatcher;
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+public class LoginServlet extends HttpServlet {
+    private static final long serialVersionUID = 1L;
+    private static final String DB_URL = "jdbc:mysql://localhost:3306/userdb?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=UTC";
+    private static final String DB_USER = "root";
+    private static final String DB_PASSWORD = "Varun48#@";
+    @Override
+    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        String uname = request.getParameter("username");
+        String pass = request.getParameter("password");
+        Connection conn = null;
+        PreparedStatement stmt = null;
+        ResultSet rs = null;
+        try {
+            Class.forName("com.mysql.cj.jdbc.Driver");
+            conn = DriverManager.getConnection(DB_URL, DB_USER, DB_PASSWORD);
+            String sql = "SELECT full_name FROM users WHERE username = ? AND password = ?";
+            stmt = conn.prepareStatement(sql);
+            stmt.setString(1, uname);
+            stmt.setString(2, pass);
+            rs = stmt.executeQuery();
+            if (rs.next()) {
+                String fullName = rs.getString("full_name");
+                request.setAttribute("displayName", fullName);
+                RequestDispatcher dispatcher = request.getRequestDispatcher("welcome.jsp");
+                dispatcher.forward(request, response);
+            } else {
+                request.setAttribute("errorMessage", "Invalid Username or Password.");
+                RequestDispatcher dispatcher = request.getRequestDispatcher("error.jsp");
+                dispatcher.forward(request, response);
+            }
+        } catch (ClassNotFoundException e) {
+            request.setAttribute("errorMessage", "Driver Error: " + e.getMessage());
+            request.getRequestDispatcher("error.jsp").forward(request, response);
+        } catch (SQLException e) {
+            request.setAttribute("errorMessage", "Database Error: " + e.getMessage());
+            request.getRequestDispatcher("error.jsp").forward(request, response);
+        } finally {
+            try { if (rs != null) rs.close(); } catch (SQLException ignored) {}
+            try { if (stmt != null) stmt.close(); } catch (SQLException ignored) {}
+            try { if (conn != null) conn.close(); } catch (SQLException ignored) {}
+        }
+    }
+    @Override
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        response.sendRedirect("login.jsp");
+    }
+}
+// === Welcome window ===
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Dashboard</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin-top: 100px;
+            background-color: #121212;
+            color: #ffffff;
+        }
+        .card {
+            display: inline-block;
+            padding: 30px 50px;
+            background: #1e1e1e;
+            border: 1px solid #333333;
+            border-radius: 8px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
+        }
+        h1 {
+            color: #00e676;
+            margin-bottom: 15px;
+        }
+        p {
+            color: #cccccc;
+            font-size: 16px;
+        }
+        a {
+            display: inline-block;
+            margin-top: 20px;
+            color: #64b5f6;
+            text-decoration: none;
+            font-weight: bold;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <div class="card">
+        <h1>Welcome, <%= request.getAttribute("displayName") != null ? request.getAttribute("displayName") : "User" %>!</h1>
+        <p>Login successfully verified through JDBC & Servlet.</p>
+        <a href="login.jsp">Log Out</a>
+    </div>
+</body>
+</html>
+// === Error window ===
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Authentication Error</title>
+    <style>
+        body { font-family: Arial, sans-serif; text-align: center; margin-top: 100px; background-color: #fff8f8; }
+        .card { display: inline-block; padding: 30px 45px; background: #ffffff; border: 1px solid #f5c6cb; border-radius: 8px; }
+        h2 { color: #721c24; }
+        p { color: #495057; }
+        a { color: #007bff; text-decoration: none; font-weight: bold; }
+    </style>
+</head>
+<body>
+    <div class="card">
+        <h2>Authentication Failed</h2>
+        <p><%= request.getAttribute("errorMessage") != null ? request.getAttribute("errorMessage") : "Invalid credentials provided." %></p>
+        <a href="login.jsp">Back to Login</a>
+    </div>
+</body>
+</html>

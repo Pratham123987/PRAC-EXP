@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hospital Portal - Secure Login</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body class="centered-layout">
+    <div class="login-card">
+        <header class="form-header">
+            <h1>CareLine Hospital</h1>
+            <p>Authorized Medical Access Portal</p>
+        </header>
+        <main>
+            <form id="loginForm" action="staff_dashboard.html" method="GET">
+                <div class="input-group">
+                    <label for="email">Staff Email Address</label>
+                    <input type="email" id="email" required placeholder="name@careline.org">
+                </div>
+                <div class="input-group">
+                    <label for="password">Security Password</label>
+                    <input type="password" id="password" required placeholder="••••••••">
+                </div>
+                <button type="submit" class="btn-primary">Authenticate Secure Sign In</button>
+            </form>
+            <div class="form-footer-links">
+                <a href="book_appointment.html">Patient Appointment Booking Portal →</a>
+            </div>
+        </main>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>

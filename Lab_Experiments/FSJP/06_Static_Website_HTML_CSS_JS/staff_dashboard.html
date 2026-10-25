@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CareLine Hospital - HMS Portal</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body class="dashboard-layout">
+    <aside class="sidebar">
+        <div class="sidebar-brand">CareLine HMS</div>
+        <div class="sidebar-badge">Vasai-Virar Unit</div>
+        <nav class="sidebar-menu">
+            <a href="#" class="active">Live OPD Queue</a>
+            <a href="book_appointment.html">New Outpatient Form</a>
+            <a href="login.html" class="logout">Secure Logout</a>
+        </nav>
+    </aside>
+    <main class="dashboard-content">
+        <header class="content-header">
+            <div>
+                <h2>Clinical Operations Dashboard</h2>
+                <div id="liveClock" class="live-clock-text">Syncing Server Time...</div>
+            </div>
+            <div class="user-profile-badge">
+                <span class="user-welcome">Welcome, <strong>Dr. Ananya Iyer</strong></span>
+                <span class="staff-role">Senior Consultant (Cardiology)</span>
+            </div>
+        </header>
+        <section class="metrics-row">
+            <div class="card opd-card">
+                <span class="metric-title">TOTAL OPD REGISTRATIONS</span>
+                <h3 id="totalPatientsCount">32</h3>
+                <span class="card-footer-sub">Token Queue Active</span>
+            </div>
+            <div class="card warning-card">
+                <span class="metric-title">WAITING IN TRIAGE</span>
+                <h3 id="pendingCount">8</h3>
+                <span class="card-footer-sub">Immediate Attention Required</span>
+            </div>
+            <div class="card success-card">
+                <span class="metric-title">IPD GENERAL WARD VACANCY</span>
+                <h3>14 / 40</h3>
+                <span class="card-footer-sub">Beds Available</span>
+            </div>
+        </section>
+        <section class="table-section">
+            <div class="table-header-flex">
+                <h3>Today's OPD Walk-in Schedule</h3>
+                <div class="triage-legend">
+                    <span class="legend-dot critical"></span> Critical
+                    <span class="legend-dot stable"></span> Routine
+                </div>
+            </div>
+            <table class="data-table">
+                <thead>
+                    <tr>
+                        <th>OPD Token</th>
+                        <th>Patient Identity Name</th>
+                        <th>Department Unit</th>
+                        <th>Attending Consultant</th>
+                        <th>Triage Priority Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>OPD-014</strong></td>
+                        <td>Aarav Sharma</td>
+                        <td>Cardiology Unit</td>
+                        <td>Dr. Iyer</td>
+                        <td><span class="badge badge-confirmed">Routine</span></td>
+                    </tr>
+                    <tr>
+                        <td><strong>OPD-015</strong></td>
+                        <td>Riya Patel</td>
+                        <td>Pediatrics Ward</td>
+                        <td>Dr. Joshi</td>
+                        <td><span class="badge badge-confirmed">Routine</span></td>
+                    </tr>
+                    <tr>
+                        <td><strong>OPD-016</strong></td>
+                        <td>Devendra Kulkarni</td>
+                        <td>Orthopedics Clinic</td>
+                        <td>Dr. Deshmukh</td>
+                        <td><span class="badge badge-pending">High Priority</span></td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+    </main>
+    <script src="script.js"></script>
+</body>
+</html>
