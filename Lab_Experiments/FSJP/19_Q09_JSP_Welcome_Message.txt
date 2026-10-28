@@ -1,0 +1,5 @@
+<%-- Q9. JSP welcome message --%>
+<%@ page contentType="text/html; charset=UTF-8" %>
+<html><body>
+ <h1>Welcome to JSP Programming!</h1>
+</body></html>

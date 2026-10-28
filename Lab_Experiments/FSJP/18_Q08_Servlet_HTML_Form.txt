@@ -1,0 +1,19 @@
+// Q8. Servlet to accept a name from an HTML form
+// === index.html ===
+<form action="hello" method="post">
+ Enter your name: <input type="text" name="username">
+ <input type="submit" value="Submit">
+</form>
+
+// === HelloServlet.java ===
+import java.io.*;
+import javax.servlet.http.*;
+import javax.servlet.annotation.*;
+
+@WebServlet("/hello")
+public class HelloServlet extends HttpServlet {
+ protected void doPost(HttpServletRequest req, HttpServletResponse res) throws IOException {
+  res.setContentType("text/html");
+  res.getWriter().println("<html><body><h2>Hello, " + req.getParameter("username") + "!</h2></body></html>");
+ }
+}

@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+<head><title>Email Validation</title></head>
+<body>
+ <h2>Email Validation</h2>
+ <input type="text" id="email" placeholder="Enter email">
+ <button onclick="validateEmail()">Validate</button>
+ <p id="result"></p>
+ <script>
+  function validateEmail() {
+   var ok = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(document.getElementById("email").value);
+   var r = document.getElementById("result");
+   r.innerHTML = ok ? "Valid email ID" : "Invalid email ID";
+   r.style.color = ok ? "green" : "red";
+  }
+ </script>
+</body>
+</html>

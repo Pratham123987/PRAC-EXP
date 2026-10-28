@@ -1,0 +1,12 @@
+// Q7. Servlet to display a welcome message
+import java.io.*;
+import javax.servlet.http.*;
+import javax.servlet.annotation.*;
+
+@WebServlet("/welcome")
+public class WelcomeServlet extends HttpServlet {
+ protected void doGet(HttpServletRequest req, HttpServletResponse res) throws IOException {
+  res.setContentType("text/html");
+  res.getWriter().println("<html><body><h1>Welcome to Servlet Programming!</h1></body></html>");
+ }
+}

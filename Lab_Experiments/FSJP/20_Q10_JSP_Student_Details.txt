@@ -1,0 +1,8 @@
+<%-- Q10. JSP to display name, register number and department --%>
+<%@ page contentType="text/html; charset=UTF-8" %>
+<html><body>
+ <h2>Student Details</h2>
+ <p>Name: <%= "Pratham" %></p>
+ <p>Register Number: <%= "2021001" %></p>
+ <p>Department: <%= "Computer Science" %></p>
+</body></html>
